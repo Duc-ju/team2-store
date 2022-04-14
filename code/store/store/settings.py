@@ -42,9 +42,13 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
+    'order',
+    'cart',
     'user',
     'book',
     'product',
+    'mobiledevice',
+    'clothes',
 ]
 
 MIDDLEWARE = [

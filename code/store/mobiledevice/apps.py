@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class MobilediviceConfig(AppConfig):
+class MobiledeviceConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'mobiledivice'
+    name = 'mobiledevice'
