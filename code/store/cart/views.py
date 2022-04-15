@@ -9,6 +9,7 @@ from rest_framework import status
 # Create your views here.
 class CartProductListAPIView(APIView):
     def post(self, request, pk):
+        cart = Cart.objects.get(pk=pk)
         data = request.data
         quantity = data['quantity']
         product_item = ProductItem.objects.get(pk=data['productItem'])
@@ -17,11 +18,16 @@ class CartProductListAPIView(APIView):
             if item.productItem_id == product_item.id:
                 item.quantity = item.quantity + quantity
                 item.save()
+                cart.quantity = cart.quantity + quantity
+                cart.totalPrice = cart.totalPrice + (product_item.prices*(1-product_item.discount))*quantity
+                cart.save()
                 serializer = CartProductDetailSerializer(item)
                 return Response(serializer.data)
-        cart = Cart.objects.get(pk=pk)
         cartproduct = CartProduct(cart=cart, productItem=product_item, quantity=quantity)
         cartproduct.save()
+        cart.quantity = cart.quantity + quantity
+        cart.totalPrice = cart.totalPrice + (product_item.prices * (1 - product_item.discount)) * quantity
+        cart.save()
         serializer = CartProductDetailSerializer(cartproduct)
         return Response(serializer.data)
 
@@ -46,3 +52,15 @@ class CartProductDetailAPIView(APIView):
         serializer = CartProductDetailSerializer(cartProduct)
         return Response(serializer.data)
 
+
+class CartDetailAPIView(APIView):
+    def get(self, request, pk):
+        cart = Cart.objects.get(pk=pk)
+        serializer = CartDetailSerializer(cart)
+        return Response(serializer.data)
+
+class CartListAPIView(APIView):
+    def get(self, request, pk):
+        cart = Cart.objects.get(user_id=pk)
+        serializer = CartDetailSerializer(cart)
+        return Response(serializer.data)
