@@ -1,13 +1,13 @@
 const dictionary = {
   getBook: (item) => {
-    let book = item.book;
+    let product = item.product;
     return {
       id: item.id,
       header: item.header,
-      originPrice: Math.round(item.price).toLocaleString(undefined, {
+      originPrice: Math.round(item.prices).toLocaleString(undefined, {
         minimumFractionDigits: 0,
       }),
-      price: Math.round(item.price * (1 - item.discount)).toLocaleString(
+      price: Math.round(item.prices * (1 - item.discount)).toLocaleString(
         undefined,
         {
           minimumFractionDigits: 0,
@@ -30,40 +30,40 @@ const dictionary = {
       description: item.description,
       brand: {
         title: 'Nhà phát hành',
-        value: book.publisher.name,
-        link: `/product/publisher=${book.publisher.id}`,
+        value: "HP",
+        link: `/product/?brand=HP`,
       },
       breadcrumb: {
-        display: 'Sách',
-        link: '/product/book',
+        display: 'Laptop',
+        link: '/product/laptop',
       },
       listDetail: [
-        {
-          title: 'Thể loại sách',
-          value: book.category.name,
-          link: `product/?category=${book.category.id}`,
-        },
-        {
-          title: 'Tác giả',
-          value: book.author.name,
-          link: `product/?author=${book.author.id}`,
-        },
-        {
-          title: 'Ngôn ngữ',
-          value: book.language,
-        },
-        {
-          title: 'Số trang',
-          value: book.numberOfPages,
-        },
-        {
-          title: 'Ngày phát hàng',
-          value: book.publicationDate,
-        },
-        {
-          title: 'Tên sách',
-          value: book.title,
-        },
+        // {
+        //   title: 'Thể loại sách',
+        //   value: book.category.name,
+        //   link: `product/?category=${book.category.id}`,
+        // },
+        // {
+        //   title: 'Tác giả',
+        //   value: book.author.name,
+        //   link: `product/?author=${book.author.id}`,
+        // },
+        // {
+        //   title: 'Ngôn ngữ',
+        //   value: book.language,
+        // },
+        // {
+        //   title: 'Số trang',
+        //   value: book.numberOfPages,
+        // },
+        // {
+        //   title: 'Ngày phát hàng',
+        //   value: book.publicationDate,
+        // },
+        // {
+        //   title: 'Tên sách',
+        //   value: book.title,
+        // },
       ],
     };
   },

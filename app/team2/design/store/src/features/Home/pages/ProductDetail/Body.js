@@ -30,7 +30,6 @@ import {
 import HeaderTitle from '../../components/HeaderTitle';
 import Product from '../../components/Product';
 import { useParams } from 'react-router-dom';
-import bookApi from '../../../../api/bookApi';
 import dictionary from './dictionary';
 import { LoadingButton } from '@mui/lab';
 import cartApi from '../../../../api/cartApi';
@@ -39,6 +38,7 @@ import { userSelector } from '../../../../redux/selectors';
 import noticeSlice from '../../../../redux/noticeSlice';
 import cartSlice from '../../../../components/Header/cartSlice';
 import { useNavigate } from 'react-router-dom';
+import productItemApi from "../../../../api/productItemApi";
 const RoundedWhiteContainer = styled.div`
   border-radius: 0.75rem;
   background-color: white;
@@ -131,16 +131,14 @@ function Body(props) {
   const [addingToCart, setAddingToCart] = useState(false);
   const [quantity, setQuantity] = useState(1);
   useEffect(() => {
-    if (type === 'book') {
-      bookApi
-        .get(id)
-        .then((book) => {
-          setItem(dictionary.getBook(book));
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
+    productItemApi
+      .get(id)
+      .then((productItem) => {
+        setItem(dictionary.getBook(productItem));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
   const dispatch = useDispatch();
   const user = useSelector(userSelector);
@@ -159,19 +157,19 @@ function Body(props) {
       cartApi
         .addItemToCart({
           cartId: user.current.cart,
-          bookItem: item.id,
+          productItem: item.id,
           quantity: quantity,
         })
-        .then((cart) => {
-          setAddingToCart(false);
-          console.log(cart);
+        .then((productItem) => {
+          // setAddingToCart(false);
+          // console.log(cart);
           dispatch(
             noticeSlice.actions.show({
               title: 'Thêm sản phẩm vào giỏ hàng thành công',
               type: 'success',
             })
           );
-          dispatch(cartSlice.actions.setSuccess(cart));
+          // dispatch(cartSlice.actions.setSuccess(cart));
           dispatch(cartSlice.actions.show());
         })
         .catch((e) => {

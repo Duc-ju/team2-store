@@ -10,7 +10,7 @@ function index() {
       <Route path='/' element={<MainPage />} />
       <Route path='product/:params' element={<FilterPage />} />
       <Route path='persional/' element={<Persional />} />
-      <Route path=':type/:id' element={<ProductDetail />} />
+      <Route path=':id' element={<ProductDetail />} />
     </Routes>
   );
 }
