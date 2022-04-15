@@ -34,8 +34,8 @@ const dictionary = {
         link: `/product/?brand=HP`,
       },
       breadcrumb: {
-        display: 'Laptop',
-        link: '/product/laptop',
+        display: product.meta.links[product.meta.links.length - 1].name,
+        link: product.meta.links[product.meta.links.length - 1].link,
       },
       listDetail: [
         // {
