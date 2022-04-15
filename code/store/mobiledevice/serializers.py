@@ -11,16 +11,16 @@ class LaptopSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Laptop
-        fields = ['id', 'laptopType', 'storageType', 'weight']
+        fields = ['id', 'batteryCapacity', 'warrantyDuration', 'warrantyType', 'screenSize', 'plusSize', 'brand', 'laptopType', 'storageType', 'weight']
 
 class MobilePhoneSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MobilePhone
-        fields = ['id', 'ram', 'processorType', 'storageCapacity', 'mobileCableType']
+        fields = ['id', 'batteryCapacity', 'warrantyDuration', 'warrantyType', 'screenSize', 'plusSize', 'brand', 'ram', 'processorType', 'storageCapacity', 'mobileCableType']
 
 class TabletSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tablet
-        fields = ['id', 'eReader', 'storageCapacity']
+        fields = ['id', 'batteryCapacity', 'warrantyDuration', 'warrantyType', 'screenSize', 'plusSize', 'brand', 'eReader', 'storageCapacity']
