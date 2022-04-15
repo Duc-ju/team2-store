@@ -6,19 +6,19 @@ const cartApi = {
     return axiosClient.post(url);
   },
   addItemToCart: ({ cartId, ...params }) => {
-    const url = `/carts/${cartId}/cart_book_items/`;
+    const url = `/carts/${cartId}/cart_products/`;
     return axiosClient.post(url, params);
   },
   getCart: (cartId) => {
     const url = `/carts/${cartId}/`;
     return axiosClient.get(url);
   },
-  deleteItem: ({ cartId, cartBookItemId }) => {
-    const url = `/carts/${cartId}/cart_book_items/${cartBookItemId}/`;
+  deleteItem: ({ cartId, cartProductId }) => {
+    const url = `/carts/${cartId}/cart_products/${cartProductId}/`;
     return axiosClient.delete(url);
   },
-  updateItem: ({ cartId, cartBookItemId, ...params }) => {
-    const url = `/carts/${cartId}/cart_book_items/${cartBookItemId}/`;
+  updateItem: ({ cartId, cartProductId, ...params }) => {
+    const url = `/carts/${cartId}/cart_products/${cartProductId}/`;
     return axiosClient.patch(url, params);
   },
 };
