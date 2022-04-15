@@ -15,6 +15,8 @@ class Voucher(models.Model):
     discountPercent = models.FloatField(default=0)
     description = models.TextField(default="")
     order = models.OneToOneField(Order, null=True, blank=True, on_delete=models.SET_NULL)
+    def __str__(self):
+        return self.code
 
 class Shipment(models.Model):
     type = models.CharField(max_length=255, default=0)
