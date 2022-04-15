@@ -8,7 +8,6 @@ class MobileDeviceSerializer(serializers.ModelSerializer):
         fields = ['id', 'batteryCapacity', 'warrantyDuration', 'warrantyType', 'screenSize', 'brand']
 
 class LaptopSerializer(serializers.ModelSerializer):
-
     links = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
@@ -28,18 +27,38 @@ class LaptopSerializer(serializers.ModelSerializer):
         ]
 
 class MobilePhoneSerializer(serializers.ModelSerializer):
-
-    type = serializers.SerializerMethodField(read_only=True)
+    links = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = MobilePhone
-        fields = ['id', 'type', 'batteryCapacity', 'warrantyDuration', 'warrantyType', 'screenSize', 'brand', 'ram', 'processorType', 'storageCapacity', 'mobileCableType']
+        fields = ['id', 'links', 'batteryCapacity', 'warrantyDuration', 'warrantyType', 'screenSize', 'brand', 'ram', 'processorType', 'storageCapacity', 'mobileCableType']
 
-    def get_type(self, obj):
-        return "Mobile"
+    def get_links(self, obj):
+        return [
+            {
+                "name": "Thiết bị di động",
+                "link": "/mobile-device"
+            },
+            {
+                "name": "Mobile Phone",
+                "link": "/mobile-phone"
+            }
+        ]
 
 class TabletSerializer(serializers.ModelSerializer):
-
+    links = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = Tablet
         fields = ['id', 'type', 'batteryCapacity', 'warrantyDuration', 'warrantyType', 'screenSize', 'plusSize', 'brand', 'eReader', 'storageCapacity']
+
+    def get_links(self, obj):
+        return [
+            {
+                "name": "Thiết bị di động",
+                "link": "/mobile-device"
+            },
+            {
+                "name": "Tablet",
+                "link": "/tablet"
+            }
+        ]

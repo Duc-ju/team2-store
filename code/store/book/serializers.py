@@ -20,12 +20,19 @@ class PublisherSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 class BookSerializer(serializers.ModelSerializer):
+    links = serializers.SerializerMethodField(read_only=True)
     author = AuthorSerializer()
     category = CategorySerializer()
     publisher = PublisherSerializer()
     class Meta:
         model = Book
-        fields = ['id', 'ISBN', 'barcode', 'language', 'publicationDate', 'numberOfPage', 'author',
+        fields = ['id','links', 'isbn', 'barcode', 'language', 'publicationDate', 'numberOfPages', 'author',
                   'category', 'publisher']
 
-
+    def get_links(self, obj):
+        return [
+            {
+                "name": "Sách",
+                "link": "/book"
+            },
+        ]
