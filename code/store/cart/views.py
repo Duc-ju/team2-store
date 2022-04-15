@@ -27,7 +27,7 @@ class CartProductListAPIView(APIView):
 
 class CartProductDetailAPIView(APIView):
 
-    def patch(self, request, cart_id, cart_product_id):
+    def patch(self, request, cart_product_id):
         data = request.data
         quantity = data['quantity']
         cartProduct = CartProduct.objects.get(pk=cart_product_id)
@@ -36,7 +36,7 @@ class CartProductDetailAPIView(APIView):
         serializer = CartProductDetailSerializer(cartProduct)
         return Response(serializer.data)
 
-    def delete(self, request, cart_id, cart_product_id):
+    def delete(self, request, cart_product_id):
         cartProduct = CartProduct.objects.get(pk=cart_product_id)
         cartProduct.delete()
         return Response(status=status.HTTP_200_OK)
