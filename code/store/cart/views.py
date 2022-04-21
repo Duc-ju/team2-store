@@ -18,16 +18,10 @@ class CartProductListAPIView(APIView):
             if item.productItem_id == product_item.id:
                 item.quantity = item.quantity + quantity
                 item.save()
-                cart.quantity = cart.quantity + quantity
-                cart.totalPrice = cart.totalPrice + (product_item.prices*(1-product_item.discount))*quantity
-                cart.save()
                 serializer = CartProductDetailSerializer(item)
                 return Response(serializer.data)
         cartproduct = CartProduct(cart=cart, productItem=product_item, quantity=quantity)
         cartproduct.save()
-        cart.quantity = cart.quantity + quantity
-        cart.totalPrice = cart.totalPrice + (product_item.prices * (1 - product_item.discount)) * quantity
-        cart.save()
         serializer = CartProductDetailSerializer(cartproduct)
         return Response(serializer.data)
 

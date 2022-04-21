@@ -5,8 +5,6 @@ from user.models import User
 
 
 class Cart(models.Model):
-    quantity = models.IntegerField(default=0)
-    totalPrice = models.FloatField(default=0)
     items = models.ManyToManyField(ProductItem, through='CartProduct')
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 

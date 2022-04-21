@@ -161,15 +161,14 @@ function Body(props) {
           quantity: quantity,
         })
         .then((productItem) => {
-          // setAddingToCart(false);
-          // console.log(cart);
+          setAddingToCart(false);
           dispatch(
             noticeSlice.actions.show({
               title: 'Thêm sản phẩm vào giỏ hàng thành công',
               type: 'success',
             })
           );
-          // dispatch(cartSlice.actions.setSuccess(cart));
+          dispatch(cartSlice.actions.setUpdate(productItem));
           dispatch(cartSlice.actions.show());
         })
         .catch((e) => {
@@ -497,7 +496,7 @@ function Body(props) {
                   ))}
                 </DetailContainer>
                 <ContentHeader>Mô tả sản phẩm</ContentHeader>
-                <DesciprionContainer>{item.description}</DesciprionContainer>
+                <DesciprionContainer dangerouslySetInnerHTML={{__html: item.description}}></DesciprionContainer>
               </RoundedWhiteContainer>
               <HeaderTitle
                 Icon={CompareArrowsIcon}

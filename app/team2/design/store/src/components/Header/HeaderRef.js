@@ -280,7 +280,7 @@ function HeaderRef(props) {
                     )}
                 </Badge>
                 <Badge
-                  badgeContent={cart.current?.numberOfItems}
+                  badgeContent={cart.current?.quantity}
                   color='primary'
                   anchorOrigin={{
                     vertical: 'top',

@@ -133,10 +133,10 @@ function ItemControl({ item }) {
     cartApi
       .deleteItem({
         cartId: cart.current.id,
-        cartBookItemId: item.id,
+        cartProductId: item.id,
       })
-      .then((cart) => {
-        dispatch(cartSlice.actions.setSuccess(cart));
+      .then(() => {
+        dispatch(cartSlice.actions.setDelete(item.id));
         dispatch(
           noticeSlice.actions.show({
             title: 'Xoá sản phẩm thành công',
@@ -162,12 +162,11 @@ function ItemControl({ item }) {
     } else {
       cartApi
         .updateItem({
-          cartId: cart.current.id,
           quantity: newQuantity,
-          cartBookItemId: item.id,
+          cartProductId: item.id,
         })
-        .then((cart) => {
-          dispatch(cartSlice.actions.setSuccess(cart));
+        .then((cartProduct) => {
+          dispatch(cartSlice.actions.setUpdate(cartProduct));
           dispatch(
             noticeSlice.actions.show({
               title: 'Đã cập nhật',
@@ -188,12 +187,11 @@ function ItemControl({ item }) {
   const handleInputChange = () => {
     cartApi
       .updateItem({
-        cartId: cart.current.id,
-        cartBookItemId: item.id,
+        cartProductId: item.id,
         quantity: inputQuantity,
       })
-      .then((cart) => {
-        dispatch(cartSlice.actions.setSuccess(cart));
+      .then((cartProduct) => {
+        dispatch(cartSlice.actions.setUpdate(cartProduct));
         dispatch(
           noticeSlice.actions.show({
             title: 'Đã cập nhật',
@@ -285,8 +283,8 @@ function CartItem({ item }) {
         <Link to='/'>
           <CardMedia
             component='img'
-            image={`${process.env.REACT_APP_API_URL}${item.bookItem.image}`}
-            alt={item.bookItem.header}
+            image={`${process.env.REACT_APP_API_URL}${item.productItem.images[0].image}`}
+            alt={item.productItem.header}
           />
           <CardContent sx={{ p: 1 }}>
             <Typography
@@ -303,7 +301,7 @@ function CartItem({ item }) {
               }}
             >
               {`${normalizeNumber(
-                item.bookItem.price * (1 - item.bookItem.discount)
+                item.productItem.prices * (1 - item.productItem.discount)
               )}đ`}
             </Typography>
           </CardContent>
@@ -340,7 +338,7 @@ function CartOverview() {
             <CartHeader>
               <SubTotal>Tổng tiền</SubTotal>
               <SubTotalNumber>{`${normalizeNumber(
-                cart.current.subTotal
+                cart.current.total
               )}đ`}</SubTotalNumber>
               <Button
                 variant='contained'
@@ -362,8 +360,8 @@ function CartOverview() {
             </CartHeader>
           </CartContent>
           <CartBody>
-            {cart.current.bookItems.map((bookItem) => (
-              <CartItem key={bookItem.id} item={bookItem} />
+            {cart.current.cartProducts.map((cartProduct) => (
+              <CartItem key={cartProduct.id} item={cartProduct} />
             ))}
           </CartBody>
         </CartContainer>

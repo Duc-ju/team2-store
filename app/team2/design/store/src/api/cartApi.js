@@ -13,12 +13,12 @@ const cartApi = {
     const url = `/carts/${cartId}/`;
     return axiosClient.get(url);
   },
-  deleteItem: ({ cartId, cartProductId }) => {
-    const url = `/carts/${cartId}/cart_products/${cartProductId}/`;
+  deleteItem: ({ cartProductId }) => {
+    const url = `/cart_products/${cartProductId}/`;
     return axiosClient.delete(url);
   },
-  updateItem: ({ cartId, cartProductId, ...params }) => {
-    const url = `/carts/${cartId}/cart_products/${cartProductId}/`;
+  updateItem: ({ cartProductId, ...params }) => {
+    const url = `/cart_products/${cartProductId}/`;
     return axiosClient.patch(url, params);
   },
 };
