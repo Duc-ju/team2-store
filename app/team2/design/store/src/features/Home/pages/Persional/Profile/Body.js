@@ -1,20 +1,17 @@
-import React from "react"
-import {MainContainer} from "../../../components/Container";
-import styled from 'styled-components'
+import React from 'react';
+import { MainContainer } from '../../../components/Container';
+import styled from 'styled-components';
 
-const Container = styled.div`
-    
-`
+const Container = styled.div``;
 
 function Body() {
-
-    return <>
-        <MainContainer>
-            <Container>
-
-            </Container>
-        </MainContainer>
-    </>
+    return (
+        <>
+            <MainContainer>
+                <Container></Container>
+            </MainContainer>
+        </>
+    );
 }
 
 export default Body;

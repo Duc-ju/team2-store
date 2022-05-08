@@ -1,0 +1,61 @@
+.root {
+  border-radius: 0.75rem;
+}
+
+.mainContainer {
+  color: var(--text-primary);
+  border-radius: 0.75rem;
+  padding: 4px 0;
+}
+
+.secondaryContainer {
+  display: flex;
+  align-item: center;
+  justify-content: space-between;
+  padding: 2px 24px;
+}
+
+.rightGroup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pageName {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.iconContainer {
+  > * {
+    margin-left: 24px !important;
+  }
+
+  > * > button {
+    color: var(--text-primary);
+  }
+}
+
+.noticeContainer {
+  position: absolute;
+  top: calc(100% + 16px);
+  right: 50%;
+  z-index: 100;
+  border-radius: 0.75rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 0px;
+    left: 100%;
+    top: 0;
+    border: 15px solid transparent;
+    border-top: 0;
+    border-bottom: 15px solid #fff;
+    transform: translate(-100%, calc(-100% + 1px));
+  }
+}
+
+.coverLink {
+
+}

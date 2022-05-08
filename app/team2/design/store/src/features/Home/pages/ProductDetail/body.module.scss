@@ -1,0 +1,92 @@
+.roundedWhiteContainer {
+  border-radius: 0.75rem;
+  background-color: white;
+  padding: 8px;
+  margin-top: 16px;
+}
+
+.baseContainer {
+  margin-top: 16px;
+}
+
+.flexBoxColumn {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+
+  > * {
+    padding: 16px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.headerContainer {
+  padding: 0 16px;
+}
+
+.header {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.rowFlexContainer {
+  display: flex;
+  align-items: center;
+}
+
+.infoContainer {
+  color: var(--bg-primary);
+  margin-right: 4px;
+}
+
+.centerHeightContainer {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.buttonGroupContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+
+  > *:not(:last-child) {
+    margin-right: 32px;
+  }
+}
+
+.contentHeader {
+  background-color: var(--bg-base);
+  border-radius: 0.75rem;
+  padding: 8px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.detailContainer {
+  margin-top: 16px;
+  padding-left: 8px;
+
+  > *:not(:first-child) {
+    margin-top: 0;
+  }
+
+  > *:last-child {
+    margin-bottom: 16px;
+  }
+}
+
+.desciprionContainer {
+  padding-left: 8px;
+  white-space: pre-wrap;
+  line-height: 2.2;
+  font-size: 15px;
+}
+
+.coverLink {
+  margin-left: 4px;
+}

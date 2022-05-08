@@ -1,0 +1,19 @@
+.footerComponent {
+  display: flex;
+  align-items: center;
+  margin-top: 32px;
+  background-color: #fff;
+  padding: 8px 32px;
+  justify-content: space-between;
+}
+
+.footerLeft {
+  display: flex;
+  align-items: center;
+}
+
+.footerRight {
+  > * {
+    margin-left: 16px;
+  }
+}

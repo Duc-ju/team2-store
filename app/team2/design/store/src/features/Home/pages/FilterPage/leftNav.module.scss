@@ -1,0 +1,52 @@
+.fixedFullHeightContainer {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  max-width: inherit;
+  height: calc(100vh - 32px);
+  overflowy: scroll;
+}
+
+.subNavFooter {
+  border-radius: 0 0 0.75rem 0.75rem;
+  background-color: white;
+  position: absolute;
+  bottom: -32px;
+  left: 0;
+  right: 0;
+  display: flex;
+  padding: 16px;
+  justify-content: center;
+  align-items: center;
+  margin: 16px;
+}
+
+.leftNavContainerMain {
+  background-color: white;
+  height: 100%;
+  margin: 16px;
+  border-radius: 0.75rem;
+}
+
+.leftNavContainer {
+  composes: container from '../../components/Container/container.module.scss';
+  height: 100%;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    height: 68px;
+  }
+}
+
+.navHeader {
+  font-size: 20px;
+  line-height: 1.5;
+  margin-left: 8px;
+}

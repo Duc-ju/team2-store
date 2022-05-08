@@ -1,0 +1,11 @@
+.containerFlex {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.containerRow {
+  composes: containerFlex;
+  justify-content: space-between;
+  width: 100%;
+}
