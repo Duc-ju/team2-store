@@ -10,9 +10,8 @@ import {
     Typography
 } from '@mui/material';
 import classes from './cartOverview.module.scss';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState, useRef, memo } from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useSelector, useDispatch } from 'react-redux';
 import { cartSelector } from '../../redux/selectors';
@@ -221,28 +220,36 @@ function CartItem({ item }) {
 function CartOverview() {
     const cart = useSelector(cartSelector);
     const dispatch = useDispatch();
-    const cartElement = useRef();
-    useEffect(() => {
-        const handleClose = (e) => {
-            if (!cartElement.current.contains(e.target)) {
-                cartElement.current.classList.add('slide-out');
-                setTimeout(() => {
-                    dispatch(cartSlice.actions.close());
-                }, 490);
-            }
-        };
-        window.addEventListener('click', handleClose);
-        return () => window.removeEventListener('click', handleClose);
-    }, []);
+    const handleClose = () => {
+        dispatch(cartSlice.actions.close());
+    };
+
+    const ref = useRef(true);
+    const firstRender = ref.current;
+    ref.current = false;
 
     return (
         <>
             {cart.current !== null && (
                 <div
-                    className={`${classes.container} shadow-short cart`}
-                    ref={cartElement}
+                    className={`${
+                        classes.container
+                    } shadow-short cart ${(() => {
+                        if (firstRender) {
+                            return cart.isShown ? 'show' : 'hide';
+                        }
+                        return cart.isShown ? 'slide-in' : 'slide-out';
+                    })()}`}
                 >
                     <div className={classes.content}>
+                        <div
+                            className={`${classes.closeButton} ${
+                                !cart.isShown ? classes.hidden : ''
+                            }`}
+                            onClick={(e) => handleClose(e)}
+                        >
+                            &#10006;
+                        </div>
                         <div className={classes.header}>
                             <span className={classes.subtotal}>Tổng tiền</span>
                             <span
@@ -278,4 +285,4 @@ function CartOverview() {
     );
 }
 
-export default CartOverview;
+export default memo(CartOverview);

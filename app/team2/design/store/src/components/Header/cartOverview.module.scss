@@ -12,16 +12,24 @@
     transform: translateX(0);
   }
   100% {
-    transform: translateX(128px);
+    transform: translateX(129px);
   }
 }
 
-:global(.cart) {
-  animation: 0.5s ease-out 0s 1 slideInFromRight;
+:global(.cart.show) {
+  transform: translateX(0);
+}
+
+:global(.cart.hide) {
+  transform: translateX(129px);
+}
+
+:global(.cart.slide-in) {
+  animation: 0.5s ease-out 0s 1 slideInFromRight forwards;
 }
 
 :global(.cart.slide-out) {
-  animation: 0.5s ease-out 0s 1 slideOutFromRight;
+  animation: 0.5s ease-out 0s 1 slideOutFromRight forwards;
 }
 
 .input {
@@ -67,18 +75,23 @@
   display: flex;
   flex-direction: column;
   padding: 12px;
+}
 
-  &::before {
-    content: '';
-    position: absolute;
-    display: block;
-    width: 0px;
-    left: 5px;
-    top: 44px;
-    border: 15px solid transparent;
-    border-left: 0;
-    border-right: 15px solid var(--text-primary);
-    transform: translate(calc(-100% - 5px), -50%);
+.closeButton {
+  position: absolute;
+  display: block;
+  width: 0px;
+  left: 5px;
+  top: 44px;
+  border: 15px solid transparent;
+  border-left: 0;
+  border-right: 15px solid var(--text-primary);
+  transform: translate(calc(-100% - 5px), -50%);
+  color: white;
+  cursor: pointer;
+
+  &.hidden {
+    display: none;
   }
 }
 

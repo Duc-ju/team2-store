@@ -87,7 +87,7 @@ function Header() {
                     />
                 </>
             )}
-            {cart.isShown && cart.current !== null && <CartOverview />}
+            {cart.current !== null && <CartOverview />}
         </>
     );
 }
