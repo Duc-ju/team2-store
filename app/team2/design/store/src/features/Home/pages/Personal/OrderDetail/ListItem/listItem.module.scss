@@ -1,0 +1,50 @@
+.rootClass:global(.MuiPaper-root) {
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+  background-color: transparent;
+}
+
+.img img {
+  width: 60px;
+  height: 100%;
+}
+
+.img {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.tableHead {
+}
+
+.productName {
+  max-width: 250px;
+}
+
+.rootClass div[class*="quantityField_containerRow"] {
+  justify-content: center;
+  gap: 5px;
+}
+
+.price, .subTotal {
+  font-weight: 600;
+}
+
+.rootClass :global(.MuiTableRow-root) {
+  background-color: #fff;
+}
+
+.subTotal span {
+  color: var(--bg-primary);
+  font-weight: 600;
+}
+
+
+.rootClass :global(.MuiTableRow-head) th {
+  padding: 8px;
+  background-color: var(--bg-primary);
+  color: white;
+}
+

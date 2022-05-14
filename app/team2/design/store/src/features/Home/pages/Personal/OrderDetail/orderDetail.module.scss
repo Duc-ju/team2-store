@@ -1,0 +1,163 @@
+.root {
+  font-size: 14px;
+
+  .titleSection {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
+    margin: 32px 0 6px 0;
+
+    h2 {
+      font-size: 20px;
+      margin: 0;
+    }
+  }
+
+  .controlSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    > :first-child {
+
+    }
+
+    > :last-child {
+      display: flex;
+      align-items: center;
+
+      button {
+        padding: 6px 16px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        background-color: transparent;
+
+        span {
+          padding: 0;
+        }
+
+        &:hover {
+          border: none;
+          outline: none;
+        }
+
+      }
+    }
+
+    span {
+      font-size: 14px;
+    }
+  }
+
+  .itemSection {
+
+  }
+
+  .orderDetail {
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+      background-color: #fff;
+      margin: 0;
+      padding: 16px;
+
+      li {
+        display: flex;
+        justify-content: flex-end;
+        gap: 5px;
+        align-items: center;
+
+        span:last-child {
+          flex-basis: 150px;
+          text-align: right;
+        }
+      }
+    }
+  }
+
+  .discount {
+    text-decoration: line-through;
+    color: #888;
+  }
+
+  .totalPrice {
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .orderInfo {
+    display: flex;
+    column-gap: 1%;
+    margin-top: 32px;
+
+    .title {
+      background-color: var(--bg-primary);
+      color: white;
+      margin: 0;
+      font-size: 14px;
+      text-align: center;
+      padding: 6px 0;
+    }
+
+    > * {
+      width: 33%;
+      border: 1px solid var(--bg-primary);
+      background-color: white;
+    }
+
+    .shipment {
+
+
+      .shipmentContainer {
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        > div {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+        }
+      }
+    }
+
+    .shipmentMethod {
+
+
+      .shipmentMethodContainer {
+        padding: 16px;
+
+        > div {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+        }
+      }
+    }
+
+    .payment {
+
+
+      .paymentContainer {
+        padding: 16px;
+
+        > div {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+        }
+
+      }
+    }
+
+  }
+
+
+}
