@@ -2,27 +2,22 @@ import React from 'react';
 import classes from './leftNav.module.scss';
 import {
     Button,
-    Checkbox,
     List,
     ListItemButton,
-    ListItemIcon,
     ListItemText,
     ListSubheader
 } from '@mui/material';
-import { ExpandLess, ExpandMore } from '@mui/icons-material';
-import Collapse from '@mui/material/Collapse';
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
-import BusinessIcon from '@mui/icons-material/Business';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
+import { useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function LeftNav(props) {
-    const [open, setOpen] = React.useState(true);
-
-    const handleClick = () => {
-        setOpen(!open);
-    };
+    const location = useLocation();
+    const selectedIndex = (() => {
+        if (location.pathname.includes('/personal/orders')) return 1;
+        return 0;
+    })();
     return (
         <div className={classes.fixedFullHeightContainer}>
             <div className={`${classes.leftNavContainerMain} shadow-linear`}>
@@ -47,11 +42,15 @@ function LeftNav(props) {
                             </ListSubheader>
                         }
                     >
-                        <ListItemButton selected>
-                            <ListItemText primary="Thông tin cá nhân" />
+                        <ListItemButton selected={selectedIndex === 0}>
+                            <Link to={'/personal'}>
+                                <ListItemText primary="Thông tin cá nhân" />
+                            </Link>
                         </ListItemButton>
-                        <ListItemButton>
-                            <ListItemText primary="Đơn hàng" />
+                        <ListItemButton selected={selectedIndex === 1}>
+                            <Link to={'/personal/orders'}>
+                                <ListItemText primary="Đơn hàng" />
+                            </Link>
                         </ListItemButton>
                     </List>
                 </div>

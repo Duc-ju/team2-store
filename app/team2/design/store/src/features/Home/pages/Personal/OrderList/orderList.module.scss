@@ -1,0 +1,22 @@
+.root {
+  gap: 16px;
+  min-height: calc(100vh - 178px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .container {
+    .title {
+      font-size: 18px;
+      font-weight: 600;
+      color: white;
+      text-align: center;
+      margin: 0;
+      background-color: var(--bg-secondary);
+      padding-top: 4px;
+      padding-bottom: 4px;
+    }
+
+
+  }
+}

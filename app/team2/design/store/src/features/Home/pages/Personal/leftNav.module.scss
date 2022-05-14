@@ -20,6 +20,10 @@
   justify-content: center;
   align-items: center;
   margin: 16px;
+
+  button {
+    width: 100%;
+  }
 }
 
 .leftNavContainerMain {
@@ -27,6 +31,10 @@
   height: 100%;
   margin: 16px;
   border-radius: 0.75rem;
+
+  div[class*="MuiListItemButton-root"] {
+    padding: 0;
+  }
 }
 
 .leftNavContainer {
@@ -49,4 +57,15 @@
   font-size: 20px;
   line-height: 1.5;
   margin-left: 8px;
+}
+
+.fixedFullHeightContainer :global(.Mui-selected) {
+  border-left: 2px solid var(--bg-primary);
+}
+
+.fixedFullHeightContainer a {
+  display: block;
+  height: 100%;
+  width: 100%;
+  padding: 8px 16px;
 }

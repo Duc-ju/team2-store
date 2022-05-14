@@ -19,7 +19,7 @@ import cartSlice from './cartSlice';
 import noticeSlice from '../../redux/noticeSlice';
 import normalizeNumber from '../../logic/normalizeNumber';
 import cartApi from '../../api/cartApi';
-import QuantityField from './QuantityField';
+import QuantityField from '../QuantityField';
 
 function CartItem({ item }) {
     return (

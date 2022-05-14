@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './body.module.scss';
-import CustomizedTables from '../../../../components/CustomizedTables';
+import CustomizedTables from './CustomizedTables';
 import { AppContainer } from '../../components/Container';
 import Header from '../../../../components/Header';
 import { ThemeProvider } from '@mui/material/styles';
@@ -82,7 +82,9 @@ function Body(props) {
                                                     sx={{
                                                         m: 1
                                                     }}
-                                                    className={'bg-red-linear'}
+                                                    className={
+                                                        classes.iconTitle
+                                                    }
                                                 >
                                                     <LocalShippingIcon />
                                                 </Avatar>
@@ -168,7 +170,9 @@ function Body(props) {
                                                     sx={{
                                                         m: 1
                                                     }}
-                                                    className={'bg-red-linear'}
+                                                    className={
+                                                        classes.iconTitle
+                                                    }
                                                 >
                                                     <PaidIcon />
                                                 </Avatar>

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import classes from './quantityField.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { cartSelector } from '../../../redux/selectors';
-import cartApi from '../../../api/cartApi';
-import cartSlice from '../cartSlice';
-import noticeSlice from '../../../redux/noticeSlice';
+import { cartSelector } from '../../redux/selectors';
+import cartApi from '../../api/cartApi';
+import cartSlice from '../Header/cartSlice';
+import noticeSlice from '../../redux/noticeSlice';
 import { Button, IconButton } from '@mui/material';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 

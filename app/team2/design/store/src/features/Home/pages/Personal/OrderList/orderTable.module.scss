@@ -1,0 +1,17 @@
+.openButton span {
+  color: var(--bg-primary);
+  cursor: pointer;
+  padding: 6px;
+}
+
+.rootClass[class*="MuiTableContainer-root"] {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.status {
+  display: flex !important;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+}
