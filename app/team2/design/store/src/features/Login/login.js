@@ -21,11 +21,11 @@ import { handleLogin } from '../../redux/apiRequests';
 import { userSelector } from '../../redux/selectors';
 import Header from '../../components/Header';
 import { AppContainer } from '../Home/components/Container';
+
 const theme = createTheme();
 
 function Login() {
     const user = useSelector(userSelector);
-    console.log(user);
     const initialValues = {
         username: '',
         password: '',

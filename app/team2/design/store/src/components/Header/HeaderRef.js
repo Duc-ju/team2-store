@@ -182,7 +182,7 @@ function HeaderRef(props) {
         dispatch(cartSlice.actions.show());
     };
     return (
-        <div
+        <section
             className={classes.mainContainer}
             style={
                 duplicate
@@ -230,19 +230,21 @@ function HeaderRef(props) {
                     <div className={classes.iconContainer}>
                         {userInfo ? (
                             <>
-                                <IconButton aria-label="Avatar">
-                                    <Avatar
-                                        sx={{ bgcolor: 'success' }}
-                                        alt={userInfo.displayName}
-                                        src={
-                                            process.env.REACT_APP_API_URL +
-                                            userInfo.photoUrl
-                                        }
-                                        style={{
-                                            border: '2px solid var(--bg-primary)'
-                                        }}
-                                    />
-                                </IconButton>
+                                <Link to={'/personal'}>
+                                    <IconButton aria-label="Avatar">
+                                        <Avatar
+                                            sx={{ bgcolor: 'success' }}
+                                            alt={userInfo.displayName}
+                                            src={
+                                                process.env.REACT_APP_API_URL +
+                                                userInfo.photoUrl
+                                            }
+                                            style={{
+                                                border: '2px solid var(--bg-primary)'
+                                            }}
+                                        />
+                                    </IconButton>
+                                </Link>
                                 <Badge
                                     badgeContent={4}
                                     color="primary"
@@ -346,7 +348,7 @@ function HeaderRef(props) {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     );
 }
 

@@ -1,12 +1,10 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
+import classes from './orderList.module.scss';
 
-class OrderList extends PureComponent {
-    render() {
-        return <div>OrderList</div>;
-    }
+function OrderList(props) {
+    return <section>
+
+    </section>;
 }
-
-OrderList.propTypes = {};
 
 export default OrderList;

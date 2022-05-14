@@ -1,0 +1,152 @@
+.root {
+  margin: 16px auto;
+  display: flex;
+  gap: 16px;
+
+  input {
+    background-color: var(--bg-base);
+  }
+
+  .leftRow {
+    width: 40%;
+    height: fit-content;
+    background-color: white;
+    border: 1px solid #d32f2f;
+
+    h1 {
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .shipment {
+
+    }
+
+    .payment {
+    }
+  }
+
+  .rightRow {
+    width: 60%;
+
+    .cartItemList {
+      > div[class*="MuiPaper-root"] {
+        box-shadow: none;
+      }
+    }
+
+    .rightBottom {
+      background-color: white;
+      margin-top: 16px;
+
+      .rightBottomContent {
+        padding: 16px 16px 16px 16px;
+        border: 1px solid var(--bg-primary);
+      }
+    }
+
+    .voucher {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      div[class*="MuiFormControl-root"] {
+        margin: 0;
+      }
+
+      button {
+        min-width: 100px;
+        height: 40px;
+      }
+    }
+
+    .orderActions {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 16px;
+      min-width: fit-content;
+
+      p {
+        font-size: 14px;
+        margin: 3px 0;
+      }
+
+      .listPrice {
+        list-style: none;
+        margin: 0 0 16px 0;
+        padding: 16px 0 16px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        border-bottom: 1px solid var(--bg-secondary);
+        border-top: 1px solid var(--bg-secondary);
+
+        li {
+          width: 100%;
+
+          p {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+          }
+        }
+
+      }
+
+      button {
+        text-transform: none;
+        font-size: 16px;
+        width: 100%;
+      }
+
+      .normalPrice {
+        font-weight: 600;
+      }
+
+      .discountPrice {
+        font-weight: 600;
+        text-decoration: line-through;
+      }
+
+      .totalPriceContainer {
+        p, span {
+          font-size: 18px;
+          font-weight: 600;
+          color: var(--bg-primary)
+        }
+      }
+    }
+  }
+
+  .groupTitle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .inputGroup {
+    width: 100%;
+
+    .columnInputGroup {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+  }
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+  text-align: center;
+  margin: 0;
+  background-color: var(--bg-secondary);
+  padding-top: 4px;
+  padding-bottom: 4px;
+}

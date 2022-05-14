@@ -4,7 +4,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 
 function Footer() {
     return (
-        <div className={classes.footerComponent}>
+        <section className={classes.footerComponent}>
             <div className={classes.footerLeft}>
                 <p style={{ marginRight: '4px' }}>©2022 made with</p>
                 <FavoriteIcon color="error" />
@@ -15,7 +15,7 @@ function Footer() {
                 <a>Contact</a>
                 <a>Blog</a>
             </div>
-        </div>
+        </section>
     );
 }
 

@@ -1,0 +1,97 @@
+.root {
+  gap: 16px;
+  min-height: calc(100vh - 178px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .container {
+    display: flex;
+    gap: 16px;
+
+    .title {
+      font-size: 18px;
+      font-weight: 600;
+      text-align: center;
+      margin: 0 0 6px 0;
+      padding-top: 4px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--bg-secondary);
+    }
+
+    .userInfo {
+      width: 50%;
+      border: 1px solid var(--bg-secondary);
+      background-color: #fff;
+      border-radius: 0.75rem;
+      padding: 16px;
+
+      .userInfoContainer {
+        p {
+          display: flex;
+
+          > :first-child {
+            width: 25%;
+          }
+
+          > :last-child {
+            width: 75%;
+          }
+        }
+
+        button {
+          border: none;
+          outline: none;
+          color: var(--bg-primary);
+          cursor: pointer;
+          background-color: transparent;
+          padding: 0;
+          margin: 0;
+
+          &:hover {
+            border: none;
+            outline: none;
+          }
+        }
+
+      }
+    }
+
+    .notice {
+      width: 50%;
+      border: 1px solid var(--bg-secondary);
+      border-radius: 0.75rem;
+      padding: 10px;
+      background-color: #fff;
+
+      .noticeList {
+        div[class*="MuiPaper-root"] {
+          max-height: 200px;
+          overflow-y: auto;
+          overflow-x: hidden;
+          width: 100%;
+          box-shadow: none;
+          border: none;
+
+          &::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            background-color: #F5F5F5;
+          }
+
+          &::-webkit-scrollbar {
+            width: 8px;
+            background-color: #F5F5F5;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background-color: #000000;
+            border: 2px solid #555555;
+          }
+        }
+      }
+    }
+  }
+
+
+}
+
