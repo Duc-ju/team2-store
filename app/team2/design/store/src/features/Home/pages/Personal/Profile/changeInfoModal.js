@@ -76,7 +76,7 @@ export default function ChangeInfoModal(props) {
                                     component="h1"
                                     variant="h5"
                                     sx={{
-                                        margin: 'auto',
+                                        margin: '6px auto',
                                         width: 'fit-content'
                                     }}
                                 >

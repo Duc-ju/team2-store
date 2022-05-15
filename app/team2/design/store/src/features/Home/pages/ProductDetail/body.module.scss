@@ -3,6 +3,7 @@
   background-color: white;
   padding: 8px;
   margin-top: 16px;
+  font-size: 14px;
 }
 
 .baseContainer {
@@ -80,11 +81,25 @@
   }
 }
 
-.desciprionContainer {
+.descriptionContainer {
   padding-left: 8px;
-  white-space: pre-wrap;
-  line-height: 2.2;
   font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  line-height: 2.2;
+
+  p {
+    margin: 0;
+  }
+
+  a {
+    color: var(--bg-primary);
+
+    &:hover {
+      color: var(--bg-secondary);
+    }
+  }
 }
 
 .coverLink {

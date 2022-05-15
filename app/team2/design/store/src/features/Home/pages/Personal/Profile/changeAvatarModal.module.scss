@@ -1,0 +1,26 @@
+.form {
+
+  .inputFile {
+    display: none;
+  }
+
+  .selectedImage {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    img {
+      border-radius: 50%;
+      width: 80%;
+      height: 100%;
+    }
+  }
+
+  .selectedInfo {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    justify-content: center;
+    gap: 6px;
+  }
+}

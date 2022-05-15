@@ -14,15 +14,20 @@ import {
 } from '@mui/material';
 import ChangePasswordModal from './changePasswordModal';
 import ChangeInfoModal from './changeInfoModal';
+import ChangeAvatarModal from './changeAvatarModal';
 
 function Profile(props) {
     const [openPasswordModal, setOpenPasswordModal] = React.useState(false);
     const [openInfoModal, setOpenInfoModal] = React.useState(false);
+    const [openAvatarModal, setOpenAvatarModal] = React.useState(false);
     const handleOpenPasswordModal = () => setOpenPasswordModal(true);
     const handleClosePasswordModal = () => setOpenPasswordModal(false);
 
     const handleOpenInfoModal = () => setOpenInfoModal(true);
     const handleCloseInfoModal = () => setOpenInfoModal(false);
+
+    const handleOpenAvatarModal = () => setOpenAvatarModal(true);
+    const handleCloseAvatarModal = () => setOpenAvatarModal(false);
     return (
         <section className={classes.root}>
             <div className={classes.container}>
@@ -40,7 +45,9 @@ function Profile(props) {
                         <p>
                             <span>Ảnh đại diện</span>
                             <span>
-                                <button>Thay đổi ảnh đại diện</button>
+                                <button onClick={handleOpenAvatarModal}>
+                                    Thay đổi ảnh đại diện
+                                </button>
                             </span>
                         </p>
                         <p>
@@ -68,7 +75,7 @@ function Profile(props) {
                 <div className={classes.notice}>
                     <h2 className={classes.title}>Thông báo</h2>
                     <div className={classes.noticeList}>
-                        <Paper sx={{width: 350}}>
+                        <Paper sx={{ width: 350 }}>
                             <List
                                 sx={{
                                     width: '100%',
@@ -88,7 +95,7 @@ function Profile(props) {
                                         secondary={
                                             <>
                                                 <Typography
-                                                    sx={{display: 'inline'}}
+                                                    sx={{ display: 'inline' }}
                                                     component="span"
                                                     variant="body2"
                                                     color="text.primary"
@@ -102,7 +109,7 @@ function Profile(props) {
                                         }
                                     />
                                 </ListItem>
-                                <Divider variant="inset" component="li"/>
+                                <Divider variant="inset" component="li" />
                                 <ListItem alignItems="flex-start">
                                     <ListItemAvatar>
                                         <Avatar
@@ -115,7 +122,7 @@ function Profile(props) {
                                         secondary={
                                             <>
                                                 <Typography
-                                                    sx={{display: 'inline'}}
+                                                    sx={{ display: 'inline' }}
                                                     component="span"
                                                     variant="body2"
                                                     color="text.primary"
@@ -129,7 +136,7 @@ function Profile(props) {
                                         }
                                     />
                                 </ListItem>
-                                <Divider variant="inset" component="li"/>
+                                <Divider variant="inset" component="li" />
                                 <ListItem alignItems="flex-start">
                                     <ListItemAvatar>
                                         <Avatar
@@ -142,7 +149,7 @@ function Profile(props) {
                                         secondary={
                                             <>
                                                 <Typography
-                                                    sx={{display: 'inline'}}
+                                                    sx={{ display: 'inline' }}
                                                     component="span"
                                                     variant="body2"
                                                     color="text.primary"
@@ -156,7 +163,7 @@ function Profile(props) {
                                         }
                                     />
                                 </ListItem>
-                                <Divider variant="inset" component="li"/>
+                                <Divider variant="inset" component="li" />
                                 <ListItem alignItems="flex-start">
                                     <ListItemAvatar>
                                         <Avatar
@@ -169,7 +176,7 @@ function Profile(props) {
                                         secondary={
                                             <>
                                                 <Typography
-                                                    sx={{display: 'inline'}}
+                                                    sx={{ display: 'inline' }}
                                                     component="span"
                                                     variant="body2"
                                                     color="text.primary"
@@ -183,7 +190,7 @@ function Profile(props) {
                                         }
                                     />
                                 </ListItem>
-                                <Divider variant="inset" component="li"/>
+                                <Divider variant="inset" component="li" />
                                 <ListItem alignItems="flex-start">
                                     <ListItemAvatar>
                                         <Avatar
@@ -196,7 +203,7 @@ function Profile(props) {
                                         secondary={
                                             <React.Fragment>
                                                 <Typography
-                                                    sx={{display: 'inline'}}
+                                                    sx={{ display: 'inline' }}
                                                     component="span"
                                                     variant="body2"
                                                     color="text.primary"
@@ -222,6 +229,10 @@ function Profile(props) {
             <ChangeInfoModal
                 openInfoModal={openInfoModal}
                 handleCloseInfoModal={handleCloseInfoModal}
+            />
+            <ChangeAvatarModal
+                openAvatarModal={openAvatarModal}
+                handleCloseAvatarModal={handleCloseAvatarModal}
             />
         </section>
     );
