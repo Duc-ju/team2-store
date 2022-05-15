@@ -1,7 +1,6 @@
 .rootClass {
   background-color: transparent !important;
   border: 1px solid var(--bg-primary);
-  border-radius: 0;
 }
 
 .img img {
@@ -33,4 +32,5 @@
 
 .subTotal span {
   color: var(--bg-primary);
+  font-weight: 600;
 }

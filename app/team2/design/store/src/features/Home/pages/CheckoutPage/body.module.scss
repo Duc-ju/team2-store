@@ -12,6 +12,7 @@
     height: fit-content;
     background-color: white;
     border: 1px solid var(--bg-primary);
+    border-radius: 0.75rem;
 
     h1 {
       font-size: 16px;
@@ -32,8 +33,9 @@
     .cartItemList {
       > div[class*="MuiPaper-root"] {
         box-shadow: none;
-        border-radius: 0;
+        border-radius: 0 0 0.75rem 0.75rem;
       }
+
     }
 
     .rightBottom {
@@ -102,6 +104,7 @@
         text-transform: none;
         font-size: 16px;
         width: 100%;
+        margin: 0;
       }
 
       .normalPrice {
@@ -154,4 +157,6 @@
   background-color: var(--bg-secondary);
   padding-top: 4px;
   padding-bottom: 4px;
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
 }

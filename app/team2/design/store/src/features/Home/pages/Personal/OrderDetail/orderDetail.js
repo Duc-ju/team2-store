@@ -93,7 +93,7 @@ class OrderDetail extends PureComponent {
                             <div className={classes.shipmentMethodContainer}>
                                 <div>
                                     <span>
-                                        <ElectricBoltIcon />
+                                        <FlashOnIcon />
                                     </span>
                                     <span>Vận chuyển nhanh</span>
                                 </div>
@@ -106,7 +106,7 @@ class OrderDetail extends PureComponent {
                             <div className={classes.paymentContainer}>
                                 <div>
                                     <span>
-                                        <FlashOnIcon />
+                                        <ElectricBoltIcon />
                                     </span>
                                     <span>Thanh toán khi nhận hàng</span>
                                 </div>

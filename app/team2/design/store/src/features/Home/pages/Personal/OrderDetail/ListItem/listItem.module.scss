@@ -41,10 +41,21 @@
   font-weight: 600;
 }
 
-
 .rootClass :global(.MuiTableRow-head) th {
   padding: 8px;
-  background-color: var(--bg-primary);
+  background-color: var(--bg-secondary);
   color: white;
+
+  &:first-child {
+    border-top-left-radius: 0.75rem;
+  }
+
+  &:last-child {
+    border-top-right-radius: 0.75rem;
+  }
+}
+
+.rootClass:global(.MuiPaper-root) *[class*="MuiTableCell-root"] {
+  padding: 8px;
 }
 

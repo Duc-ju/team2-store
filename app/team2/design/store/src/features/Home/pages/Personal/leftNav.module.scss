@@ -61,6 +61,10 @@
 
 .fixedFullHeightContainer :global(.Mui-selected) {
   border-left: 2px solid var(--bg-primary);
+
+  span {
+    font-weight: 600;
+  }
 }
 
 .fixedFullHeightContainer a {

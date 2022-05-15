@@ -16,7 +16,7 @@ import { FastField, Form, Formik } from 'formik';
 import InputField from '../../../../components/InputField';
 import CheckBoxField from '../../../../components/CheckBoxField';
 import LoadingButton from '@mui/lab/LoadingButton';
-import LoginIcon from '@mui/icons-material/Login';
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import Grid from '@mui/material/Grid';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
@@ -301,12 +301,19 @@ function Body(props) {
                                                 </p>
                                             </li>
                                         </ul>
-                                        <Button
+                                        <LoadingButton
+                                            type="submit"
+                                            fullWidth
                                             variant="contained"
-                                            type={'submit'}
+                                            sx={{ mt: 3, mb: 2 }}
+                                            loading={false}
+                                            loadingPosition="end"
+                                            endIcon={
+                                                <ShoppingCartCheckoutIcon />
+                                            }
                                         >
-                                            Xác nhận đơn hàng
-                                        </Button>
+                                            Đặt hàng
+                                        </LoadingButton>
                                     </div>
                                 </div>
                             </div>

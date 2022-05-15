@@ -12,8 +12,17 @@ import {
     Paper,
     Typography
 } from '@mui/material';
+import ChangePasswordModal from './changePasswordModal';
+import ChangeInfoModal from './changeInfoModal';
 
 function Profile(props) {
+    const [openPasswordModal, setOpenPasswordModal] = React.useState(false);
+    const [openInfoModal, setOpenInfoModal] = React.useState(false);
+    const handleOpenPasswordModal = () => setOpenPasswordModal(true);
+    const handleClosePasswordModal = () => setOpenPasswordModal(false);
+
+    const handleOpenInfoModal = () => setOpenInfoModal(true);
+    const handleCloseInfoModal = () => setOpenInfoModal(false);
     return (
         <section className={classes.root}>
             <div className={classes.container}>
@@ -23,8 +32,16 @@ function Profile(props) {
                         <p>
                             <span>Mật khẩu</span>
                             <span>
-                            <button>Thay đổi mật khẩu</button>
-                        </span>
+                                <button onClick={handleOpenPasswordModal}>
+                                    Thay đổi mật khẩu
+                                </button>
+                            </span>
+                        </p>
+                        <p>
+                            <span>Ảnh đại diện</span>
+                            <span>
+                                <button>Thay đổi ảnh đại diện</button>
+                            </span>
                         </p>
                         <p>
                             <span>Tên hiển thị</span>
@@ -44,7 +61,9 @@ function Profile(props) {
                             <span>Nam</span>
                         </p>
                     </div>
-                    <Button variant="outlined">Chỉnh sửa</Button>
+                    <Button variant="outlined" onClick={handleOpenInfoModal}>
+                        Chỉnh sửa
+                    </Button>
                 </div>
                 <div className={classes.notice}>
                     <h2 className={classes.title}>Thông báo</h2>
@@ -196,7 +215,14 @@ function Profile(props) {
                     </div>
                 </div>
             </div>
-
+            <ChangePasswordModal
+                openPasswordModal={openPasswordModal}
+                handleClosePasswordModal={handleClosePasswordModal}
+            />
+            <ChangeInfoModal
+                openInfoModal={openInfoModal}
+                handleCloseInfoModal={handleCloseInfoModal}
+            />
         </section>
     );
 }
