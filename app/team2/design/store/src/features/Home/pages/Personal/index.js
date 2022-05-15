@@ -1,1 +1,1 @@
-export { default } from './persional';
+export { default } from './personal';

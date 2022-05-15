@@ -14,12 +14,12 @@ import React, { useState, useRef, memo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useSelector, useDispatch } from 'react-redux';
-import { cartSelector } from '../redux/selectors';
-import cartSlice from './Header/cartSlice';
-import noticeSlice from '../redux/noticeSlice';
-import normalizeNumber from '../logic/normalizeNumber';
-import cartApi from '../api/cartApi';
-import QuantityField from './QuantityField';
+import { cartSelector } from '../../redux/selectors';
+import cartSlice from '../Header/cartSlice';
+import noticeSlice from '../../redux/noticeSlice';
+import normalizeNumber from '../../logic/normalizeNumber';
+import cartApi from '../../api/cartApi';
+import QuantityField from '../QuantityField';
 
 function CartItem({ item }) {
     return (

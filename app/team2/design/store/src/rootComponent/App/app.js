@@ -8,7 +8,7 @@ import Register from '../../features/Register';
 import ScrollToTop from '../../router/ScrollToTop';
 import SnackNotice from '../../components/SnackNotice';
 import GlobalStyles from '../GlobalStyles';
-import CartOverview from '../../components/CartOverview';
+import CartOverview from '../../components/CartOverView/CartOverview';
 
 function App() {
     return (

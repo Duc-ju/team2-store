@@ -39,12 +39,14 @@
     }
 
     .rightBottom {
-      background-color: white;
       margin-top: 16px;
 
       .rightBottomContent {
         padding: 16px 16px 16px 16px;
         border: 1px solid var(--bg-primary);
+        border-bottom-right-radius: 0.75rem;
+        border-bottom-left-radius: 0.75rem;
+        background-color: white;
       }
     }
 

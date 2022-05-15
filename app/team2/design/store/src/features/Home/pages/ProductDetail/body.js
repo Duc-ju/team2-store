@@ -18,7 +18,7 @@ import {
     Skeleton,
     Typography
 } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import Shortcut from '../../components/Shortcut';
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
@@ -40,6 +40,7 @@ import noticeSlice from '../../../../redux/noticeSlice';
 import cartSlice from '../../../../components/Header/cartSlice';
 import { useNavigate } from 'react-router-dom';
 import productItemApi from '../../../../api/productItemApi';
+import pendingRedirectSlice from '../../../../redux/pendingRedirectSlice';
 
 const LinkItem = (props) => {
     const { link, content, style } = props;
@@ -71,9 +72,15 @@ function Body(props) {
     const dispatch = useDispatch();
     const user = useSelector(userSelector);
     const navigate = useNavigate();
+    const location = useLocation();
     const handleAddToCart = () => {
         if (user.current == null) {
             navigate('/login');
+            dispatch(
+                pendingRedirectSlice.actions.create({
+                    path: location.pathname
+                })
+            );
             dispatch(
                 noticeSlice.actions.show({
                     title: 'Đăng nhập để tiếp tục',

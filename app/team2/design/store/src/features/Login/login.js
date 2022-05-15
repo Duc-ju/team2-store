@@ -18,7 +18,7 @@ import * as Yup from 'yup';
 import CheckBoxField from '../../components/CheckBoxField';
 import InputField from '../../components/InputField';
 import { handleLogin } from '../../redux/apiRequests';
-import { userSelector } from '../../redux/selectors';
+import { pendingRedirectSelector, userSelector } from '../../redux/selectors';
 import Header from '../../components/Header';
 import { AppContainer } from '../Home/components/Container';
 
@@ -40,8 +40,10 @@ function Login() {
     });
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const pendingRedirect = useSelector(pendingRedirectSelector);
+    console.log(pendingRedirect);
     const handleSubmit = (data) => {
-        handleLogin(data, dispatch, navigate);
+        handleLogin(data, dispatch, navigate, pendingRedirect);
     };
     return (
         <Formik
