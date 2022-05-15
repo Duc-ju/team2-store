@@ -50,7 +50,7 @@ function Notification(props) {
     }, []);
     return (
         <div
-            className={`${classes.noticeContainer} shadow - max`}
+            className={`${classes.noticeContainer} shadow-max`}
             ref={notificationElement}
         >
             <Paper sx={{ width: 350 }}>

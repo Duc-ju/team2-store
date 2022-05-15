@@ -8,6 +8,7 @@ import Register from '../../features/Register';
 import ScrollToTop from '../../router/ScrollToTop';
 import SnackNotice from '../../components/SnackNotice';
 import GlobalStyles from '../GlobalStyles';
+import CartOverview from '../../components/CartOverview';
 
 function App() {
     return (
@@ -26,6 +27,7 @@ function App() {
                                 <Route path="*" element={<NotFound />} />
                             </Routes>
                             <SnackNotice />
+                            <CartOverview />
                         </ScrollToTop>
                     </GlobalStyles>
                 </BrowserRouter>

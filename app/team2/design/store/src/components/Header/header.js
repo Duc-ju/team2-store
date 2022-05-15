@@ -1,6 +1,5 @@
 import HeaderRef from './HeaderRef';
 import { useState, useEffect, useRef } from 'react';
-import CartOverview from './CartOverview';
 import { useSelector, useDispatch } from 'react-redux';
 import { cartSelector, userSelector } from '../../redux/selectors';
 import cartApi from '../../api/cartApi';
@@ -87,7 +86,6 @@ function Header() {
                     />
                 </>
             )}
-            {cart.current !== null && <CartOverview />}
         </>
     );
 }
