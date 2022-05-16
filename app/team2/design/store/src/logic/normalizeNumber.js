@@ -1,6 +1,8 @@
 function normalizeNumber(number) {
-  return Math.round(number).toLocaleString(undefined, {
-    minimumFractionDigits: 0,
-  });
+    return new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 1
+    }).format(number);
 }
+
 export default normalizeNumber;

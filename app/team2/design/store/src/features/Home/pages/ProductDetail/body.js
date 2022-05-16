@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import classes from './body.module.scss';
 import PropTypes from 'prop-types';
 import HomeIcon from '@mui/icons-material/Home';
@@ -43,6 +43,7 @@ import productItemApi from '../../../../api/productItemApi';
 import pendingRedirectSlice from '../../../../redux/pendingRedirectSlice';
 import RatingAndComment from './ratingAndComment';
 import ProductDetailShimmer from './productDetail.shimmer';
+import useFirestore from '../../../../customHooks/useFirestore';
 
 const LinkItem = (props) => {
     const { link, content, style } = props;
@@ -61,14 +62,17 @@ function Body(props) {
     const [item, setItem] = useState(null);
     const [addingToCart, setAddingToCart] = useState(false);
     const [quantity, setQuantity] = useState(1);
+    const [fetchingCompleted, setFetchingCompleted] = useState(false);
     useEffect(() => {
         productItemApi
             .get(id)
             .then((productItem) => {
                 setItem(dictionary.getBook(productItem));
+                setFetchingCompleted(true);
             })
             .catch((error) => {
                 console.log(error);
+                setFetchingCompleted(true);
             });
     }, []);
     const dispatch = useDispatch();
@@ -120,6 +124,16 @@ function Body(props) {
                 });
         }
     };
+
+    const commentCondition = useMemo(() => {
+        return {
+            fieldName: 'pid',
+            operator: '==',
+            compareValue: item?.id
+        };
+    }, [fetchingCompleted]);
+
+    const comments = useFirestore('comment', commentCondition);
 
     return (
         <>
@@ -567,7 +581,7 @@ function Body(props) {
                                     }}
                                 ></div>
                             </div>
-                            <RatingAndComment />
+                            <RatingAndComment comments={comments} />
                             <HeaderTitle
                                 Icon={CompareArrowsIcon}
                                 color="primary"

@@ -88,7 +88,6 @@ export default function ChangeInfoModal(props) {
                                         component={InputField}
                                         label="Tên hiển thị"
                                         type={'password'}
-                                        autoFocus
                                         autoComplete="displayName"
                                     />
 

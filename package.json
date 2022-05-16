@@ -1,0 +1,25 @@
+{
+  "name": "store",
+  "version": "1.0.0",
+  "description": "- Step 1: cd app\\team2\\design\\store\r - Step 2: npm install\r - ---Waiting for npm installing all requirements packet---\r - Step 3: npm start\r - Step 4: Open demo on port 3000, http method\r ## From second start: Do all step with first start case except Step 2",
+  "main": "index.js",
+  "scripts": {
+    "backend": "cd code/store && python .\\manage.py runserver",
+    "frontend": "cd app/team2/design/store && npm start",
+    "start": "npm-run-all --parallel backend frontend",
+    "watch": "npm-run-all --parallel backend frontend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Duc-ju/team5-store.git"
+  },
+  "author": "duc-ju",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Duc-ju/team5-store/issues"
+  },
+  "homepage": "https://github.com/Duc-ju/team5-store#readme",
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}

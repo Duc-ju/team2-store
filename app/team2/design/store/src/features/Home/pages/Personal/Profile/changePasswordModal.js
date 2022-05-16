@@ -93,7 +93,6 @@ export default function ChangePasswordModal(props) {
                                         component={InputField}
                                         label="Mật khẩu cũ"
                                         type={'password'}
-                                        autoFocus
                                         autoComplete="oldPassword"
                                     />
 
