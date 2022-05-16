@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Book, Author, Category, Publisher
+from .models import *
 
 class AuthorSerializer(serializers.ModelSerializer):
 
@@ -20,19 +20,23 @@ class PublisherSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 class BookSerializer(serializers.ModelSerializer):
-    links = serializers.SerializerMethodField(read_only=True)
     author = AuthorSerializer()
     category = CategorySerializer()
     publisher = PublisherSerializer()
     class Meta:
         model = Book
-        fields = ['id','links', 'isbn', 'barcode', 'language', 'publicationDate', 'numberOfPages', 'author',
+        fields = ['id', 'isbn', 'name', 'price', 'barcode', 'language', 'publicationDate', 'numberOfPages', 'author',
                   'category', 'publisher']
 
-    def get_links(self, obj):
-        return [
-            {
-                "name": "Sách",
-                "link": "/book"
-            },
-        ]
+class BookImgSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BookImg
+        fields = ['id', 'img']
+
+class BookItemSerializer(serializers.ModelSerializer):
+    book = BookSerializer()
+    images = BookImgSerializer(many=True, read_only=True)
+    class Meta:
+        model = BookItem
+        fields = ['id', 'title', 'price', 'discount', 'images', 'book', 'cart']
+

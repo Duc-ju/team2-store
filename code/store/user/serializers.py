@@ -1,32 +1,30 @@
 from rest_framework import serializers
-from .models import User, Address
+from .models import *
 from cart.models import Cart
 
 class AddressSerializer(serializers.ModelSerializer):
-
     class Meta:
-        model= Address
-        fields = ['id', 'fullName', 'phoneNumber', 'city', 'district', 'detail']
+        model = Address
+        fields = ['id', 'numberHouse', 'street', 'district', 'city']
 
-class UserSerializer(serializers.ModelSerializer):
-    addresses = AddressSerializer(many=True)
 
+class CustomerSerializer(serializers.ModelSerializer):
+    address = AddressSerializer()
     class Meta:
-        model = User
-        fields = ['id', 'username', 'displayName', 'email', 'photoUrl', 'addresses', 'cart']
+        model = Customer
+        fields = ['id', 'phone', 'email', 'gender', 'avatar', 'displayName', 'midName', 'address']
 
-
-class UserCreateSerializer(serializers.ModelSerializer):
+class CustomerCreateSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
     def create(self, validated_data):
-        user = User.objects.create_user(
+        user = Customer.objects.create_user(
             username=validated_data['username'],
             password=validated_data['password'],
             displayName=validated_data['displayName'],
             email=validated_data['email']
         )
-        Cart.objects.create(user_id=user.id)
+        Cart.objects.create(customer_id=user.id)
         return user
     class Meta:
-        model = User
-        fields = ['id', 'username', 'email', 'password', 'displayName']
+        model = Customer
+        fields = ['id', 'username', 'password', 'email', 'displayName']
