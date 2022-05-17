@@ -42,13 +42,14 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
-    'order',
-    'cart',
-    'user',
     'book',
-    'product',
-    'mobiledevice',
     'clothes',
+    'user',
+    'cart',
+    'laptop',
+    'order',
+    'payment',
+    'shipment',
 ]
 
 MIDDLEWARE = [
@@ -148,7 +149,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'user.User'
+AUTH_USER_MODEL = 'user.Customer'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
@@ -218,6 +219,6 @@ ALLOWED_HOSTS = ['.HEROKUAPP.COM','localhost','127.0.0.1']
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-# PROJECT_ROOT = os.path.join(os.path.abspath(__file__))
-# STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+PROJECT_ROOT = os.path.join(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 

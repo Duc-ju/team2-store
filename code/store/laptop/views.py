@@ -6,25 +6,25 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 # Create your views here.
 
-class ClothesItemListAPIView(APIView):
+class LaptopItemListAPIView(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request):
-        listClothesItem = ClothesItem.objects.filter(cart_id = None)
-        serializer = ClothesItemSerializer(listClothesItem, many=True)
+        listLaptopItem = LaptopItem.objects.filter(cart_id = None)
+        serializer = LaptopItemSerializer(listLaptopItem, many=True)
         return Response(serializer.data)
 
 class AddCartView(APIView):
 
     def patch(self, request, pk, id):
-        Item = ClothesItem.objects.get(pk=id)
+        Item = LaptopItem.objects.get(pk=id)
         Item.cart_id = pk
         Item.save()
-        serializer = ClothesItemSerializer(Item)
+        serializer = LaptopItemSerializer(Item)
         return Response(serializer.data)
 
-class TypesListView(APIView):
+class ProducersListView(APIView):
     def get(self, request):
-        types = Types.objects.all()
-        serializer = TypesSerializer(types, many=True)
+        producers = Producer.objects.all()
+        serializer = ProducerSerializer(producers, many=True)
         return Response(serializer.data)

@@ -1,18 +1,15 @@
 from rest_framework import serializers
 from .models import *
+from cart.serializers import CartSerializer
+from user.serializers import CustomerSerializer
+from payment.serializers import PaymentSerializer
+from shipment.serializers import ShipmentSerializer
 
-class VoucherListSerializer(serializers.ModelSerializer):
+class OrderSerializer(serializers.ModelSerializer):
+    cart = CartSerializer()
+    customer = CustomerSerializer()
+    shipment = ShipmentSerializer()
+    payment = PaymentSerializer()
     class Meta:
-        model = Voucher
-        fields = ["code", "discountPercent", "description"]
-
-class VoucherDetailSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Voucher
-        fields = ["id", "code", "discountPercent", "description", "order"]
-
-class OrderListSerializers(serializers.ModelSerializer):
-    pass
-
-class OrderDetailSerializers(serializers.ModelSerializer):
-    pass
+        model = Order
+        fields = ['id', 'status', 'createAt', 'updatedAt', 'customer', 'cart', 'shipment', 'payment']
