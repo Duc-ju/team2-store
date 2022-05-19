@@ -9,6 +9,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import QuantityField from '../../../../../components/QuantityField';
+import { cartSelector } from '../../../../../redux/selectors';
+import { useSelector } from 'react-redux';
+import normalizeNumber from '../../../../../logic/normalizeNumber';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.body}`]: {
@@ -44,6 +47,7 @@ const rows = [
 ];
 
 export default function CustomizedTables() {
+    const cart = useSelector(cartSelector).current;
     return (
         <TableContainer component={Paper} className={classes.rootClass}>
             <Table
@@ -68,8 +72,8 @@ export default function CustomizedTables() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
-                        <StyledTableRow key={row.name}>
+                    {cart.cartProducts.map((cartProduct) => (
+                        <StyledTableRow key={cartProduct.id}>
                             <StyledTableCell
                                 component="th"
                                 scope="row"
@@ -78,31 +82,33 @@ export default function CustomizedTables() {
                                 <div className={classes.img}>
                                     <img
                                         src={
-                                            'http://localhost:8000/media/images/126_laptophitech_vn_lenovo_thinkpad_t460s__7__1.jpg'
+                                            (cartProduct.images &&
+                                                cartProduct.images[0]) ||
+                                            process.env.PUBLIC_URL +
+                                                '/images/box.png'
                                         }
                                     />
                                 </div>
                             </StyledTableCell>
                             <StyledTableCell className={classes.productName}>
-                                <span>Laptop Thinkpad T460s ngon bổ rẻ</span>
+                                <span>{cartProduct.title}</span>
                             </StyledTableCell>
                             <StyledTableCell
                                 align="center"
                                 className={classes.quantityField}
                             >
-                                <QuantityField
-                                    item={{
-                                        quantity: 2,
-                                        id: 2
-                                    }}
-                                />
+                                <QuantityField item={cartProduct} />
                             </StyledTableCell>
                             <StyledTableCell
                                 align="center"
                                 className={classes.price}
                             >
                                 <span>
-                                    15.000<span>đ</span>
+                                    {normalizeNumber(
+                                        cartProduct.price *
+                                            (1 - cartProduct.discount)
+                                    )}
+                                    <span>đ</span>
                                 </span>
                             </StyledTableCell>
                             <StyledTableCell
@@ -110,7 +116,11 @@ export default function CustomizedTables() {
                                 className={classes.subTotal}
                             >
                                 <span>
-                                    15.000<span>đ</span>
+                                    {normalizeNumber(
+                                        cartProduct.price *
+                                            (1 - cartProduct.discount)
+                                    )}
+                                    <span>đ</span>
                                 </span>
                             </StyledTableCell>
                             {/*<StyledTableCell align="center">*/}

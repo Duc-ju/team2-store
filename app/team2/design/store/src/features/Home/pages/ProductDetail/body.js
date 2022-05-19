@@ -35,7 +35,11 @@ import dictionary from './dictionary';
 import { LoadingButton } from '@mui/lab';
 import cartApi from '../../../../api/cartApi';
 import { useSelector, useDispatch } from 'react-redux';
-import { userSelector } from '../../../../redux/selectors';
+import {
+    cartSelector,
+    productSelector,
+    userSelector
+} from '../../../../redux/selectors';
 import noticeSlice from '../../../../redux/noticeSlice';
 import cartSlice from '../../../../components/Header/cartSlice';
 import { useNavigate } from 'react-router-dom';
@@ -58,23 +62,18 @@ const LinkItem = (props) => {
 };
 
 function Body(props) {
-    const { type, id } = useParams();
-    const [item, setItem] = useState(null);
+    const { typeProduct, id } = useParams();
+    const products = useSelector(productSelector);
+    const cart = useSelector(cartSelector);
     const [addingToCart, setAddingToCart] = useState(false);
     const [quantity, setQuantity] = useState(1);
-    const [fetchingCompleted, setFetchingCompleted] = useState(false);
-    useEffect(() => {
-        productItemApi
-            .get(id)
-            .then((productItem) => {
-                setItem(dictionary.getBook(productItem));
-                setFetchingCompleted(true);
-            })
-            .catch((error) => {
-                console.log(error);
-                setFetchingCompleted(true);
-            });
-    }, []);
+    const itemRef = products[typeProduct].find((item) => `${item.id}` === id);
+    const item = (() => {
+        if (!itemRef) return;
+        if (typeProduct === 'book') return dictionary.getBook(itemRef);
+        if (typeProduct === 'clothes') return dictionary.getClothes(itemRef);
+        if (typeProduct === 'laptop') return dictionary.getLaptop(itemRef);
+    })();
     const dispatch = useDispatch();
     const user = useSelector(userSelector);
     const navigate = useNavigate();
@@ -97,9 +96,10 @@ function Body(props) {
             setAddingToCart(true);
             cartApi
                 .addItemToCart({
-                    cartId: user.current.cart,
-                    productItem: item.id,
-                    quantity: quantity
+                    cartId: cart.current.id,
+                    itemId: item.id,
+                    type: typeProduct
+                    // quantity: quantity
                 })
                 .then((productItem) => {
                     setAddingToCart(false);
@@ -131,7 +131,7 @@ function Body(props) {
             operator: '==',
             compareValue: item?.id
         };
-    }, [fetchingCompleted]);
+    }, []);
 
     const comments = useFirestore('comment', commentCondition);
 
@@ -434,6 +434,7 @@ function Body(props) {
                                             loading={addingToCart}
                                             loadingPosition="start"
                                             onClick={handleAddToCart}
+                                            disabled={item.cart === null}
                                         >
                                             Thêm vào giỏ hàng
                                         </LoadingButton>

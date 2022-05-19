@@ -8,20 +8,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import normalizeNumber from '../../../../../../logic/normalizeNumber';
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9)
-];
-
-export default function ListItem() {
+export default function ListItem({ cart }) {
     return (
         <TableContainer component={Paper} className={classes.rootClass}>
             <Table
@@ -38,8 +27,8 @@ export default function ListItem() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
-                        <TableRow key={row.name}>
+                    {cart.cartProducts.map((cartProduct) => (
+                        <TableRow key={cartProduct.id}>
                             <TableCell
                                 component="th"
                                 scope="row"
@@ -48,23 +37,30 @@ export default function ListItem() {
                                 <div className={classes.img}>
                                     <img
                                         src={
-                                            'http://localhost:8000/media/images/126_laptophitech_vn_lenovo_thinkpad_t460s__7__1.jpg'
+                                            (cartProduct.images &&
+                                                cartProduct.images[0]) ||
+                                            process.env.PUBLIC_URL +
+                                                '/images/box.png'
                                         }
                                     />
                                 </div>
                             </TableCell>
                             <TableCell className={classes.productName}>
-                                <span>Laptop Thinkpad T460s ngon bổ rẻ</span>
+                                <span>{cartProduct.title}</span>
                             </TableCell>
                             <TableCell
                                 align="center"
                                 className={classes.quantityField}
                             >
-                                <span>2</span>
+                                <span>{'1'}</span>
                             </TableCell>
                             <TableCell align="center" className={classes.price}>
                                 <span>
-                                    15.000<span>đ</span>
+                                    {`${normalizeNumber(
+                                        cartProduct.price *
+                                            (1 - cartProduct.discount)
+                                    )}`}
+                                    <span>đ</span>
                                 </span>
                             </TableCell>
                             <TableCell
@@ -72,7 +68,11 @@ export default function ListItem() {
                                 className={classes.subTotal}
                             >
                                 <span>
-                                    15.000<span>đ</span>
+                                    {`${normalizeNumber(
+                                        cartProduct.price *
+                                            (1 - cartProduct.discount)
+                                    )}`}
+                                    <span>đ</span>
                                 </span>
                             </TableCell>
                             {/*<StyledTableCell align="center">*/}

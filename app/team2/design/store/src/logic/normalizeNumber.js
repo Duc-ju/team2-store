@@ -1,6 +1,6 @@
 function normalizeNumber(number) {
     return new Intl.NumberFormat('en-US', {
-        minimumFractionDigits: 0,
+        minimumFractionDigits: 1,
         maximumFractionDigits: 1
     }).format(number);
 }

@@ -9,10 +9,33 @@ from rest_framework.permissions import AllowAny
 from rest_framework.parsers import JSONParser
 from rest_framework.generics import CreateAPIView
 
+
 class UserAPIView(CreateAPIView):
     permission_classes = [AllowAny]
     model = Customer
     serializer_class = CustomerCreateSerializer
+
+
+class UserDetailAPIView(APIView):
+
+    def get(self, request, pk):
+        is_staff = request.user.is_staff
+        id = request.user.id
+        if not is_staff and id != pk:
+            return Response({
+                'status': '400',
+                'message': 'Not has permission'
+            })
+        try:
+            user = Customer.objects.get(pk=pk)
+        except Customer.DoesNotExist:
+            return Response({
+                'status': 404,
+                'message': 'User not found'
+            })
+        serializer = CustomerSerializer(user)
+        return Response(serializer.data)
+
 
 class UpdateProfile(CreateAPIView):
     def post(self, request, id):

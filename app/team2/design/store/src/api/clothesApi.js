@@ -1,10 +1,10 @@
 import axiosBase from './axiosBase';
 
-const productItemApi = {
+const clothesApi = {
     get: () => {
-        const url = `/book_items/`;
+        const url = `/clothes_items/`;
         return axiosBase.get(url);
     }
 };
 
-export default productItemApi;
+export default clothesApi;

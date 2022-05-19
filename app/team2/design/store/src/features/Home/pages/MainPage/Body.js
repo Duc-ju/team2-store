@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useTheme } from '@emotion/react';
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import CategoryIcon from '@mui/icons-material/Category';
@@ -20,6 +21,11 @@ import { Container, MainContainer } from '../../components/Container';
 import HeaderTitle from '../../components/HeaderTitle';
 import Product from '../../components/Product';
 import Shortcut from '../../components/Shortcut';
+import bookApi from '../../../../api/bookApi';
+import { useSelector } from 'react-redux';
+import { productSelector } from '../../../../redux/selectors';
+import shuffle from '../../../../logic/shuffle';
+
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const images = [
@@ -102,6 +108,25 @@ const productList = [
 function Body() {
     const theme = useTheme();
     const [activeStep, setActiveStep] = React.useState(0);
+    const products = useSelector(productSelector);
+    const lastestProduct = useMemo(() => {
+        const productBag = [
+            ...products.book,
+            ...products.clothes,
+            ...products.laptop
+        ].sort((a, b) => a.id - b.id);
+        if (productBag.length <= 5) return productBag;
+        return productBag.slice(0, 5);
+    }, [products]);
+    const randomProduct = useMemo(() => {
+        const productBag = shuffle([
+            ...products.book,
+            ...products.clothes,
+            ...products.laptop
+        ]);
+        if (productBag.length <= 5) return productBag;
+        return productBag.slice(0, 5);
+    }, [products]);
     const maxSteps = images.length;
 
     const handleNext = () => {
@@ -114,6 +139,7 @@ function Body() {
     const handleStepChange = (step) => {
         setActiveStep(step);
     };
+
     return (
         <>
             <MainContainer>
@@ -276,30 +302,20 @@ function Body() {
                     style={{ marginTop: '2rem' }}
                     Icon={LocalFireDepartmentIcon}
                     color="error"
-                    title="Top Bán Chạy"
-                    link="/filter/top-sale"
+                    title="Sản phẩm mới về"
+                    link="/product/top-sale"
                 />
                 <Grid container spacing={2} sx={{ marginTop: 2 }}>
-                    <Grid item xs={2}>
-                        <Product />
-                    </Grid>
-                    <Grid item xs={2}>
-                        <Product />
-                    </Grid>
-                    <Grid item xs={2}>
-                        <Product />
-                    </Grid>
-                    <Grid item xs={2}>
-                        <Product />
-                    </Grid>
-                    <Grid item xs={2}>
-                        <Product />
-                    </Grid>
+                    {lastestProduct.map((item) => (
+                        <Grid item xs={2} key={`${item.type}-${item.id}`}>
+                            <Product item={item} key={item.id} />
+                        </Grid>
+                    ))}
                     <Grid item xs={2}>
                         <Shortcut
                             Icon={LocalFireDepartmentIcon}
-                            title="Xem tất cả sản phẩm bán chạy"
-                            link="/filter/top-sale"
+                            title="Xem tất cả sản phẩm mới nhất"
+                            link="/product/top-sale"
                             className="bg-red-linear"
                         />
                     </Grid>
@@ -315,25 +331,15 @@ function Body() {
                         <Shortcut
                             Icon={RecommendIcon}
                             title="Xem tất cả sản phẩm được đề xuất"
-                            link="/filter/recomended"
+                            link="/product/recommended"
                             className="bg-blue-linear"
                         />
                     </Grid>
-                    <Grid item xs={2}>
-                        <Product />
-                    </Grid>
-                    <Grid item xs={2}>
-                        <Product />
-                    </Grid>
-                    <Grid item xs={2}>
-                        <Product />
-                    </Grid>
-                    <Grid item xs={2}>
-                        <Product />
-                    </Grid>
-                    <Grid item xs={2}>
-                        <Product />
-                    </Grid>
+                    {randomProduct.map((item) => (
+                        <Grid item xs={2} key={`${item.type}-${item.id}`}>
+                            <Product item={item} key={item.id} />
+                        </Grid>
+                    ))}
                 </Grid>
             </MainContainer>
         </>

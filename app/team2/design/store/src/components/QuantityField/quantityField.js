@@ -18,10 +18,11 @@ function QuantityField({ item }) {
         cartApi
             .deleteItem({
                 cartId: cart.current.id,
-                cartProductId: item.id
+                itemId: item.id,
+                type: item.type
             })
             .then(() => {
-                dispatch(cartSlice.actions.setDelete(item.id));
+                dispatch(cartSlice.actions.setDelete(item));
                 dispatch(
                     noticeSlice.actions.show({
                         title: 'Xoá sản phẩm thành công',
@@ -29,7 +30,8 @@ function QuantityField({ item }) {
                     })
                 );
             })
-            .catch(() => {
+            .catch((e) => {
+                console.log(e);
                 dispatch(
                     noticeSlice.actions.show({
                         title: 'Xoá sản phẩm không thành công',
@@ -42,32 +44,33 @@ function QuantityField({ item }) {
         let newQuantity = e.target.value;
         if (newQuantity === '0') {
             deleteItem();
-        } else if (newQuantity === '>10') {
-            setOpenInput(true);
-        } else {
-            cartApi
-                .updateItem({
-                    quantity: newQuantity,
-                    cartProductId: item.id
-                })
-                .then((cartProduct) => {
-                    dispatch(cartSlice.actions.setUpdate(cartProduct));
-                    dispatch(
-                        noticeSlice.actions.show({
-                            title: 'Đã cập nhật',
-                            type: 'success'
-                        })
-                    );
-                })
-                .catch(() => {
-                    dispatch(
-                        noticeSlice.actions.show({
-                            title: 'Có lỗi xảy ra',
-                            type: 'error'
-                        })
-                    );
-                });
         }
+        // else if (newQuantity === '>10') {
+        //     setOpenInput(true);
+        // } else {
+        //     cartApi
+        //         .updateItem({
+        //             quantity: newQuantity,
+        //             cartProductId: item.id
+        //         })
+        //         .then((cartProduct) => {
+        //             dispatch(cartSlice.actions.setUpdate(cartProduct));
+        //             dispatch(
+        //                 noticeSlice.actions.show({
+        //                     title: 'Đã cập nhật',
+        //                     type: 'success'
+        //                 })
+        //             );
+        //         })
+        //         .catch(() => {
+        //             dispatch(
+        //                 noticeSlice.actions.show({
+        //                     title: 'Có lỗi xảy ra',
+        //                     type: 'error'
+        //                 })
+        //             );
+        //         });
+        // }
     };
     const handleInputChange = () => {
         cartApi

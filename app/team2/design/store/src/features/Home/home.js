@@ -12,9 +12,9 @@ function Home() {
         <Routes>
             <Route path="/" element={<MainPage />} />
             <Route path="/cart/check-out" element={<CheckOutPage />} />
-            <Route path="product/:params" element={<FilterPage />} />
+            <Route path="product/:type" element={<FilterPage />} />
             <Route path="personal/*" element={<Personal />} />
-            <Route path=":id" element={<ProductDetail />} />
+            <Route path=":typeProduct/:id" element={<ProductDetail />} />
             <Route element={<NotFound />} />
         </Routes>
     );

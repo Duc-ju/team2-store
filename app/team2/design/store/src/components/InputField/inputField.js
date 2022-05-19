@@ -10,7 +10,8 @@ function InputField(props) {
         type,
         autoComplete,
         autoFocus,
-        size = 'medium'
+        size = 'medium',
+        ...rest
     } = props;
     const { name } = field;
     const { errors, touched } = form;
@@ -28,6 +29,7 @@ function InputField(props) {
             error={showError}
             helperText={showError ? errors[name] : ''}
             size={size}
+            {...rest}
         />
     );
 }

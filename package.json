@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "backend": "cd code/store && python .\\manage.py runserver",
+    "makemigrations": "cd code/store && python .\\manage.py makemigrations",
+    "migrate": "cd code/store && python .\\manage.py migrate",
+    "createsuperuser": "cd code/store && python .\\manage.py createsuperuser",
     "frontend": "cd app/team2/design/store && npm start",
     "start": "npm-run-all --parallel backend frontend",
     "watch": "npm-run-all --parallel backend frontend"

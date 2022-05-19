@@ -17,21 +17,29 @@ import {
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import normalizeNumber from '../../../../logic/normalizeNumber';
 
 function Product(props) {
-    const { showControl = true } = props;
+    const { showControl = true, item = {} } = props;
+    const image = (() => {
+        if (item.images && item.images.length >= 1) return item.images[0];
+        return process.env.PUBLIC_URL + '/images/box.png';
+    })();
     return (
         <Badge
-            badgeContent={<TrendingDownIcon />}
+            badgeContent={item.discount > 0 && <TrendingDownIcon />}
             color="primary"
-            className="hover-effect"
+            className={`${
+                item.discount <= 0 ? classes.hiddenBage : ''
+            } hover-effect`}
+            sx={{ width: '100%' }}
         >
-            <Container className="shadow-clear">
+            <Container className="shadow-clear" style={{ width: '100%' }}>
                 <Card>
-                    <Link to="/book/1">
+                    <Link to={`/${item.type}/${item.id}`}>
                         <CardMedia
                             component="img"
-                            image="https://cf.shopee.vn/file/d3de9ac75596a32971882992bfd036ef"
+                            image={image}
                             alt="green iguana"
                         />
                         <CardContent sx={{ p: 1 }}>
@@ -41,7 +49,7 @@ function Product(props) {
                                 component="div"
                                 sx={{ textAlign: 'justify', fontSize: 12 }}
                             >
-                                Bộ Quần Áo Thể Thao Nam Nhiều Màu Có Cổ Thời ...
+                                {item.title}
                             </Typography>
                             <Typography
                                 gutterBottom
@@ -55,7 +63,9 @@ function Product(props) {
                                     m: 0
                                 }}
                             >
-                                300.000đ
+                                {`${normalizeNumber(
+                                    item.price * (1 - item.discount)
+                                )}đ`}
                             </Typography>
                         </CardContent>
                     </Link>

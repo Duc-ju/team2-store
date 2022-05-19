@@ -58,16 +58,16 @@ function SelectField(props) {
     );
 }
 
-SelectField.propTypes = {
-    field: PropTypes.object.isRequired,
-    form: PropTypes.object.isRequired,
-
-    type: PropTypes.string,
-    label: PropTypes.string,
-    autoComplete: PropTypes.string,
-    autoFocus: PropTypes.bool,
-    menuItems: PropTypes.array
-};
+// SelectField.propTypes = {
+//     field: PropTypes.object.isRequired,
+//     form: PropTypes.object.isRequired,
+//
+//     type: PropTypes.string,
+//     label: PropTypes.string,
+//     autoComplete: PropTypes.string,
+//     autoFocus: PropTypes.bool,
+//     menuItems: PropTypes.array
+// };
 SelectField.defaultProps = {
     type: 'text',
     label: '',

@@ -9,3 +9,7 @@
   justify-content: space-between;
   width: 100%;
 }
+
+.hiddenBage span[class*="MuiBadge-badge"] {
+  background-color: transparent;
+}

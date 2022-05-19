@@ -25,11 +25,15 @@ function CartItem({ item }) {
     return (
         <div className={classes.itemContainer}>
             <Card>
-                <Link to="/">
+                <Link to={`/${item.type}/${item.id}`}>
                     <CardMedia
                         component="img"
-                        image={`${process.env.REACT_APP_API_URL}${item.productItem.images[0].image}`}
-                        alt={item.productItem.header}
+                        image={
+                            item.images[0]
+                                ? `${process.env.REACT_APP_API_URL}${item.images[0].image}`
+                                : process.env.PUBLIC_URL + '/images/box.png'
+                        }
+                        alt={item.title}
                     />
                     <CardContent sx={{ p: 1 }}>
                         <Typography
@@ -46,8 +50,7 @@ function CartItem({ item }) {
                             }}
                         >
                             {`${normalizeNumber(
-                                item.productItem.prices *
-                                    (1 - item.productItem.discount)
+                                item.price * (1 - item.discount)
                             )}đ`}
                         </Typography>
                     </CardContent>
@@ -87,7 +90,7 @@ function CartOverview() {
                     if (firstRender) {
                         return cart.isShown ? 'show' : 'hide';
                     }
-                    return cart.isShown ? 'slide-in' : 'slide-out';
+                    return cart.isShown ? 'slide-in' : 'hide';
                 })()}`}
             >
                 <div className={classes.content}>
@@ -100,28 +103,40 @@ function CartOverview() {
                         &#10006;
                     </div>
                     <div className={classes.header}>
-                        <span className={classes.subtotal}>Tổng tiền</span>
-                        <span
-                            className={classes.subtotalNumber}
-                        >{`${normalizeNumber(cart.current.total)}đ`}</span>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            size="small"
-                            fullWidth
-                            disableElevation
-                            sx={{
-                                my: '12px',
-                                borderRadius: '0.75rem',
-                                fontSize: '12px',
-                                p: '2px',
-                                textTransform: 'none'
-                            }}
-                            onClick={handleClickCheckout}
-                        >
-                            Thanh toán
-                        </Button>
-                        <Divider sx={{ width: '100%' }} />
+                        {cart.current.quantity > 0 ? (
+                            <>
+                                <span className={classes.subtotal}>
+                                    Tổng tiền
+                                </span>
+                                <span
+                                    className={classes.subtotalNumber}
+                                >{`${normalizeNumber(
+                                    cart.current.total
+                                )}đ`}</span>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    size="small"
+                                    fullWidth
+                                    disableElevation
+                                    sx={{
+                                        my: '12px',
+                                        borderRadius: '0.75rem',
+                                        fontSize: '12px',
+                                        p: '2px',
+                                        textTransform: 'none'
+                                    }}
+                                    onClick={handleClickCheckout}
+                                >
+                                    Thanh toán
+                                </Button>
+                                <Divider sx={{ width: '100%' }} />
+                            </>
+                        ) : (
+                            <>
+                                <div>Giỏ hàng trống</div>
+                            </>
+                        )}
                     </div>
                 </div>
                 <div className={classes.body}>
