@@ -38,7 +38,7 @@ class UserDetailAPIView(APIView):
 
 
 class UpdateProfile(CreateAPIView):
-    def post(self, request, id):
+    def patch(self, request, id):
         data = request.data
         user = Customer.objects.get(pk=id)
         if user is not None:

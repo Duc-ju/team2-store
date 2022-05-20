@@ -93,7 +93,14 @@ function Body(props) {
         paypal.bank = datas.paymentBank;
         paypal.content = datas.paymentDescription;
         paypal.totalAmount = cart.total + shipmentQuery[shipmentType];
-        const order = { shipment, paypal };
+        const cash = {};
+        cash.totalAmount = cart.total + shipmentQuery[shipmentType];
+        let order;
+        if (paymentMethod === 'paypal') {
+            order = { shipment, paypal };
+        } else {
+            order = { shipment, cash };
+        }
         orderApi
             .addOrder(user.id, cart.id, order)
             .then((order) => {
@@ -129,8 +136,12 @@ function Body(props) {
         shipName: Yup.string().required('Vui lòng nhập tên người nhận'),
         shipDetail: Yup.string().required('Vui lòng nhập địa chỉ chi tiết'),
         shipPhone: Yup.string().required('Vui lòng nhập số điện thoại'),
-        paymentNumber: Yup.string().required('Vui lòng nhập số thẻ'),
-        paymentBank: Yup.string().required('Vui lòng nhập tên ngân hàng'),
+        paymentNumber:
+            paymentMethod === 'paypal' &&
+            Yup.string().required('Vui lòng nhập số thẻ'),
+        paymentBank:
+            paymentMethod === 'paypal' &&
+            Yup.string().required('Vui lòng nhập tên ngân hàng'),
         voucher: Yup.string()
     });
     return (

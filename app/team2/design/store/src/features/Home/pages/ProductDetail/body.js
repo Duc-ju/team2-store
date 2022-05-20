@@ -48,6 +48,11 @@ import pendingRedirectSlice from '../../../../redux/pendingRedirectSlice';
 import RatingAndComment from './ratingAndComment';
 import ProductDetailShimmer from './productDetail.shimmer';
 import useFirestore from '../../../../customHooks/useFirestore';
+import bookApi from '../../../../api/bookApi';
+import clothesApi from '../../../../api/clothesApi';
+import LaptopApi from '../../../../api/laptopApi';
+import laptopApi from '../../../../api/laptopApi';
+import StarProduct from './starProduct';
 
 const LinkItem = (props) => {
     const { link, content, style } = props;
@@ -63,20 +68,64 @@ const LinkItem = (props) => {
 
 function Body(props) {
     const { typeProduct, id } = useParams();
-    const products = useSelector(productSelector);
     const cart = useSelector(cartSelector);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [addingToCart, setAddingToCart] = useState(false);
     const [quantity, setQuantity] = useState(1);
-    const itemRef = products[typeProduct].find((item) => `${item.id}` === id);
-    const item = (() => {
-        if (!itemRef) return;
-        if (typeProduct === 'book') return dictionary.getBook(itemRef);
-        if (typeProduct === 'clothes') return dictionary.getClothes(itemRef);
-        if (typeProduct === 'laptop') return dictionary.getLaptop(itemRef);
-    })();
-    const dispatch = useDispatch();
+    const [item, setItem] = useState();
+    useEffect(() => {
+        if (typeProduct === 'book') {
+            bookApi
+                .get(id)
+                .then((book) => {
+                    setItem(dictionary.getBook(book));
+                })
+                .catch((e) => {
+                    console.log(e);
+                    navigate('/');
+                    dispatch(
+                        noticeSlice.actions.show({
+                            type: 'error',
+                            title: 'Sản phẩm không tồn tại'
+                        })
+                    );
+                });
+        } else if (typeProduct === 'clothes') {
+            clothesApi
+                .get(id)
+                .then((clothes) => {
+                    setItem(dictionary.getClothes(clothes));
+                })
+                .catch((e) => {
+                    console.log(e);
+                    navigate('/');
+                    dispatch(
+                        noticeSlice.actions.show({
+                            type: 'error',
+                            title: 'Sản phẩm không tồn tại'
+                        })
+                    );
+                });
+        } else if (typeProduct === 'laptop') {
+            laptopApi
+                .get(id)
+                .then((laptop) => {
+                    setItem(dictionary.getLaptop(laptop));
+                })
+                .catch((e) => {
+                    console.log(e);
+                    navigate('/');
+                    dispatch(
+                        noticeSlice.actions.show({
+                            type: 'error',
+                            title: 'Sản phẩm không tồn tại'
+                        })
+                    );
+                });
+        }
+    }, [addingToCart, cart.current]);
     const user = useSelector(userSelector);
-    const navigate = useNavigate();
     const location = useLocation();
     const handleAddToCart = () => {
         if (user.current == null) {
@@ -129,12 +178,12 @@ function Body(props) {
         return {
             fieldName: 'pid',
             operator: '==',
-            compareValue: item?.id
+            compareValue: `${typeProduct}-${id}`
         };
-    }, []);
+    }, [typeProduct, id]);
 
-    const comments = useFirestore('comment', commentCondition);
-
+    const comments = useFirestore('rating', commentCondition);
+    console.log(comments);
     return (
         <>
             {item ? (
@@ -173,8 +222,8 @@ function Body(props) {
                                         }}
                                     >
                                         <img
-                                            src={item.images[0].image}
-                                            srcSet={item.images[0].image}
+                                            src={item.images[0].img}
+                                            srcSet={item.images[0].img}
                                             alt={item.header}
                                             loading="lazy"
                                         />
@@ -198,8 +247,8 @@ function Body(props) {
                                             }}
                                         >
                                             <img
-                                                src={image.image}
-                                                srcSet={image.image}
+                                                src={image.img}
+                                                srcSet={image.img}
                                                 alt={item.header}
                                                 loading="lazy"
                                             />
@@ -213,28 +262,27 @@ function Body(props) {
                                         {item.header}
                                     </h2>
                                     <div className={classes.rowFlexContainer}>
-                                        <LinkItem link="/" content="4.6" />
-                                        <Rating
-                                            name="rating"
-                                            size="small"
-                                            readOnly
-                                            defaultValue={3}
-                                            precision={1}
-                                        />
+                                        <StarProduct comments={comments} />
                                         <Divider
                                             orientation="vertical"
                                             sx={{ mx: 1 }}
                                             flexItem
                                         />
-                                        <LinkItem link="/" content="16.3k" />{' '}
+                                        <LinkItem
+                                            link="/"
+                                            content={comments.length}
+                                        />{' '}
                                         đánh giá
                                         <Divider
                                             orientation="vertical"
                                             sx={{ mx: 2 }}
                                             flexItem
                                         />
-                                        <LinkItem link="/" content="36.3k" /> đã
-                                        bán
+                                        <LinkItem
+                                            link="/"
+                                            content={comments.length}
+                                        />{' '}
+                                        đã bán
                                     </div>
                                     <div
                                         className={classes.rowFlexContainer}
@@ -434,7 +482,7 @@ function Body(props) {
                                             loading={addingToCart}
                                             loadingPosition="start"
                                             onClick={handleAddToCart}
-                                            disabled={item.cart === null}
+                                            disabled={item.cart !== null}
                                         >
                                             Thêm vào giỏ hàng
                                         </LoadingButton>

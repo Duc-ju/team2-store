@@ -16,12 +16,6 @@ import ScrollToTop from '../../router/ScrollToTop';
 import SnackNotice from '../../components/SnackNotice';
 import GlobalStyles from '../GlobalStyles';
 import CartOverview from '../../components/CartOverView/CartOverview';
-import { addDocument } from '../../firebase/services';
-import bookApi from '../../api/bookApi';
-import { useDispatch } from 'react-redux';
-import productSlice from '../../redux/productSlice';
-import clothesApi from '../../api/clothesApi';
-import laptopApi from '../../api/laptopApi';
 
 function App() {
     return (

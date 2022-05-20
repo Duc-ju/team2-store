@@ -12,6 +12,7 @@ function useLoginRequire() {
     const location = useLocation();
     useEffect(() => {
         if (user.current === null) {
+            console.log('use login required');
             dispatch(
                 pendingRedirectSlice.actions.create({
                     path: location.pathname
@@ -25,7 +26,7 @@ function useLoginRequire() {
                 })
             );
         }
-    }, [user.current]);
+    }, [user.current, navigate, dispatch]);
 }
 
 export default useLoginRequire;

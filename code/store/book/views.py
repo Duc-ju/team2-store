@@ -13,7 +13,16 @@ class BookItemListAPIView(APIView):
 
     def get(self, request):
         listBookItem = BookItem.objects.all()
-        serializer = BookItemSerializer(listBookItem, many=True)
+        serializer = BookItemListSerializer(listBookItem, many=True)
+        return Response(serializer.data)
+
+
+class BookItemAPIView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, pk):
+        bookItem = BookItem.objects.get(pk=pk)
+        serializer = BookItemSerializer(bookItem)
         return Response(serializer.data)
 
 

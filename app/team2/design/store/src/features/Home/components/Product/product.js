@@ -22,7 +22,8 @@ import normalizeNumber from '../../../../logic/normalizeNumber';
 function Product(props) {
     const { showControl = true, item = {} } = props;
     const image = (() => {
-        if (item.images && item.images.length >= 1) return item.images[0];
+        if (item.images && item.images.length >= 1)
+            return process.env.REACT_APP_API_URL + item.images[0].img;
         return process.env.PUBLIC_URL + '/images/box.png';
     })();
     return (

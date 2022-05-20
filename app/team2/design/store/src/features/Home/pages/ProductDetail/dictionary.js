@@ -12,9 +12,9 @@ const dictionary = {
             images:
                 item.images.length > 0
                     ? item.images.map((image) => {
-                          image.image =
-                              process.env.REACT_APP_API_URL + image.image;
-                          return image;
+                          const img = process.env.REACT_APP_API_URL + image.img;
+                          const imageRef = { img };
+                          return imageRef;
                       })
                     : [
                           {
@@ -74,9 +74,9 @@ const dictionary = {
             images:
                 item.images.length > 0
                     ? item.images.map((image) => {
-                          image.image =
-                              process.env.REACT_APP_API_URL + image.image;
-                          return image;
+                          const img = process.env.REACT_APP_API_URL + image.img;
+                          const imageRef = { img };
+                          return imageRef;
                       })
                     : [
                           {
@@ -135,9 +135,9 @@ const dictionary = {
             images:
                 item.images.length > 0
                     ? item.images.map((image) => {
-                          image.image =
-                              process.env.REACT_APP_API_URL + image.image;
-                          return image;
+                          const img = process.env.REACT_APP_API_URL + image.img;
+                          const imageRef = { img };
+                          return imageRef;
                       })
                     : [
                           {

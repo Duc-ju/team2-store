@@ -5,11 +5,12 @@ from user.serializers import CustomerSerializer
 from payment.serializers import PaymentSerializer
 from shipment.serializers import ShipmentSerializer
 
+
 class OrderSerializer(serializers.ModelSerializer):
     cart = CartSerializer()
-    customer = CustomerSerializer()
     shipment = ShipmentSerializer()
     payment = PaymentSerializer()
+
     class Meta:
         model = Order
         fields = ['id', 'status', 'createAt', 'updatedAt', 'customer', 'cart', 'shipment', 'payment']

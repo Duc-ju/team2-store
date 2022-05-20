@@ -83,7 +83,10 @@ export default function CustomizedTables() {
                                     <img
                                         src={
                                             (cartProduct.images &&
-                                                cartProduct.images[0]) ||
+                                                cartProduct.images[0] &&
+                                                process.env.REACT_APP_API_URL +
+                                                    cartProduct.images[0]
+                                                        .img) ||
                                             process.env.PUBLIC_URL +
                                                 '/images/box.png'
                                         }

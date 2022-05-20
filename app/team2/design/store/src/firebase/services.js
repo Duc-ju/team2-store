@@ -2,11 +2,8 @@ import firebase, { db } from './config';
 
 export const addDocument = (collection, data) => {
     const query = db.collection(collection);
-    query
-        .add({
-            ...data,
-            createAt: firebase.firestore.FieldValue.serverTimestamp()
-        })
-        .then((value) => console.log(value))
-        .catch((e) => console.log(e));
+    return query.add({
+        ...data,
+        createAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
 };

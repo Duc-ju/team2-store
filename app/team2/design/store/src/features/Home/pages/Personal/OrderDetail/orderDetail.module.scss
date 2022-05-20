@@ -3,14 +3,20 @@
 
   .titleSection {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
-    gap: 12px;
     margin: 32px 0 6px 0;
 
     h2 {
       font-size: 20px;
       margin: 0;
+    }
+
+    .orderName {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 12px;
     }
   }
 

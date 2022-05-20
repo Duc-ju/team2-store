@@ -30,7 +30,7 @@ function CartItem({ item }) {
                         component="img"
                         image={
                             item.images[0]
-                                ? `${process.env.REACT_APP_API_URL}${item.images[0].image}`
+                                ? `${process.env.REACT_APP_API_URL}${item.images[0].img}`
                                 : process.env.PUBLIC_URL + '/images/box.png'
                         }
                         alt={item.title}

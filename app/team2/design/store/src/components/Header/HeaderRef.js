@@ -237,7 +237,7 @@ function HeaderRef(props) {
                                             alt={userInfo.displayName}
                                             src={
                                                 process.env.REACT_APP_API_URL +
-                                                userInfo.photoUrl
+                                                userInfo.avatar
                                             }
                                             style={{
                                                 border: '2px solid var(--bg-primary)'

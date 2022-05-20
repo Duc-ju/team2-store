@@ -13,7 +13,16 @@ class ClothesItemListAPIView(APIView):
 
     def get(self, request):
         listClothesItem = ClothesItem.objects.all()
-        serializer = ClothesItemSerializer(listClothesItem, many=True)
+        serializer = ClothesItemListSerializer(listClothesItem, many=True)
+        return Response(serializer.data)
+
+
+class ClothesItemAPIView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, pk):
+        clothesItem = ClothesItem.objects.get(pk=pk)
+        serializer = ClothesItemSerializer(clothesItem)
         return Response(serializer.data)
 
 

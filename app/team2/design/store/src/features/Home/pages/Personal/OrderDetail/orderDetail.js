@@ -11,16 +11,50 @@ import FlashOnIcon from '@mui/icons-material/FlashOn';
 import { useReactToPrint } from 'react-to-print';
 import orderApi from '../../../../../api/orderApi';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import noticeSlice from '../../../../../redux/noticeSlice';
 import shuffle from '../../../../../logic/shuffle';
 import normalizeNumber from '../../../../../logic/normalizeNumber';
+import { userSelector } from '../../../../../redux/selectors';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import CheckIcon from '@mui/icons-material/Check';
+import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
+import { Button } from '@mui/material';
 
+const shipmentMethods = {
+    normal: 'Vận chuyển thường',
+    fast: 'Vận chuyển nhanh'
+};
+
+const paymentMethods = {
+    cash: 'Thanh toán khi nhận hàng',
+    paypal: 'Thanh toán bằng Paypal'
+};
+
+const orderStatuses = {
+    process: {
+        icon: <PendingActionsIcon />,
+        title: 'Đang xử lý'
+    },
+    shipping: {
+        icon: <LocalShippingIcon />,
+        title: 'Đang vận chuyển'
+    },
+    completed: {
+        icon: <CheckIcon />,
+        title: 'Đã hoàn thành'
+    },
+    canceled: {
+        icon: <CancelPresentationIcon />,
+        title: 'Đã huỷ'
+    }
+};
 const OrderDetail = () => {
     const [order, setOrder] = useState();
     const param = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const user = useSelector(userSelector).current;
     useEffect(() => {
         orderApi
             .getOrder(param.id)
@@ -66,23 +100,59 @@ const OrderDetail = () => {
         order,
         cart
     });
+    const handleCancelOrder = () => {
+        orderApi
+            .cancelOrder(order.id)
+            .then((order) => {
+                console.log(order);
+                setOrder(order);
+                dispatch(
+                    noticeSlice.actions.show({
+                        type: 'success',
+                        title: 'Huỷ đơn hàng thành công'
+                    })
+                );
+            })
+            .catch((e) => {
+                console.log(e);
+                dispatch(
+                    noticeSlice.actions.show({
+                        type: 'error',
+                        title: 'Huỷ đơn hàng thành không công'
+                    })
+                );
+            });
+    };
+
     return (
         <section className={classes.root} ref={printComponentRef}>
             <div className={classes.container}>
                 <div className={classes.titleSection}>
-                    <h2 className={classes.title}>
-                        Chi tiết đơn hàng 0000000117
-                    </h2>
-                    <Chip
-                        icon={<PendingActionsIcon />}
-                        label="Đang xử lý"
-                        variant="outlined"
-                        sx={{ backgroundColor: 'white' }}
-                    />
+                    <div className={classes.orderName}>
+                        <h2 className={classes.title}>
+                            {`Chi tiết đơn hàng 000000${order.id}`}
+                        </h2>
+                        <Chip
+                            icon={<>{orderStatuses[order.status].icon}</>}
+                            label={orderStatuses[order.status].title}
+                            variant="outlined"
+                            sx={{ backgroundColor: 'white', padding: '0 6px' }}
+                        />
+                    </div>
+                    <div>
+                        {order.status === 'process' && (
+                            <Button
+                                variant="contained"
+                                onClick={handleCancelOrder}
+                            >
+                                Huỷ đơn hàng
+                            </Button>
+                        )}
+                    </div>
                 </div>
                 <div className={classes.controlSection}>
                     <div>
-                        <span>14 tháng 5, 2022</span>
+                        <span>{order.createAt.slice(0, 10)}</span>
                     </div>
 
                     <div>
@@ -103,7 +173,7 @@ const OrderDetail = () => {
                     </div>
                 </div>
                 <div className={classes.itemSection}>
-                    <ListItem cart={cart} />
+                    <ListItem order={order} cart={cart} />
                 </div>
                 <div className={classes.orderDetail}>
                     <ul>
@@ -113,15 +183,19 @@ const OrderDetail = () => {
                         </li>
                         <li>
                             <span>Phí vận chuyển</span>
-                            <span>20.000đ</span>
+                            <span>{normalizeNumber(order.shipment.cost)}</span>
                         </li>
                         <li>
                             <span>Mã giảm giá</span>
-                            <span className={classes.discount}>-20.000đ</span>
+                            <span className={classes.discount}>0đ</span>
                         </li>
                         <li>
                             <span>Tổng thanh toán</span>
-                            <span className={classes.totalPrice}>117.000đ</span>
+                            <span className={classes.totalPrice}>
+                                {normalizeNumber(
+                                    order.shipment.cost + cart.total
+                                )}
+                            </span>
                         </li>
                     </ul>
                 </div>
@@ -129,12 +203,10 @@ const OrderDetail = () => {
                     <div className={classes.shipment}>
                         <h2 className={classes.title}>Thông tin vận chuyển</h2>
                         <div className={classes.shipmentContainer}>
-                            <span>Nguyễn Tràng Đức</span>
-                            <span>0963835711</span>
-                            <span>Hà Nội</span>
-                            <span>Thanh trì</span>
-                            <span>Tả Thanh Oai</span>
-                            <span>Ngõ 22, Siêu Quần</span>
+                            <span>{user.displayName}</span>
+                            <span>{order.shipment.phone}</span>
+                            <span>{order.shipment.address}</span>
+                            <span>{order.shipment.createAt.slice(0, 10)}</span>
                         </div>
                     </div>
                     <div className={classes.shipmentMethod}>
@@ -146,7 +218,9 @@ const OrderDetail = () => {
                                 <span>
                                     <FlashOnIcon />
                                 </span>
-                                <span>Vận chuyển nhanh</span>
+                                <span>
+                                    {shipmentMethods[order.shipment.type]}
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -157,7 +231,9 @@ const OrderDetail = () => {
                                 <span>
                                     <ElectricBoltIcon />
                                 </span>
-                                <span>Thanh toán khi nhận hàng</span>
+                                <span>
+                                    {paymentMethods[order.payment.type]}
+                                </span>
                             </div>
                         </div>
                     </div>

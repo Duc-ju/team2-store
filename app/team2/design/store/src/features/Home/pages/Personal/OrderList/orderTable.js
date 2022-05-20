@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import classes from './orderTable.module.scss';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,21 +8,56 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import PendingActionsIcon from '@mui/icons-material/PendingActions';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { userSelector } from '../../../../../redux/selectors';
+import orderApi from '../../../../../api/orderApi';
+import noticeSlice from '../../../../../redux/noticeSlice';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import CheckIcon from '@mui/icons-material/Check';
+import CancelPresentationIcon from '@mui/icons-material/CancelPresentation';
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9)
-];
-
+const orderStatuses = {
+    process: {
+        icon: <PendingActionsIcon />,
+        title: 'Đang xử lý'
+    },
+    shipping: {
+        icon: <LocalShippingIcon />,
+        title: 'Đang vận chuyển'
+    },
+    completed: {
+        icon: <CheckIcon />,
+        title: 'Đã hoàn thành'
+    },
+    canceled: {
+        icon: <CancelPresentationIcon />,
+        title: 'Đã huỷ'
+    }
+};
 export default function OrderTable() {
+    const user = useSelector(userSelector).current;
+    const dispatch = useDispatch();
+    const [listOrder, setListOrder] = useState();
+    useEffect(() => {
+        orderApi
+            .getOrderList(user.id)
+            .then((orders) => {
+                console.log(orders);
+                setListOrder(orders);
+            })
+            .catch((e) => {
+                console.log(e);
+                dispatch(
+                    noticeSlice.actions.show({
+                        type: 'error',
+                        title: 'Tải danh sách đơn hàng không thành công'
+                    })
+                );
+            });
+    }, [user]);
+    if (!listOrder) return null;
+    console.log(listOrder);
     return (
         <TableContainer component={Paper} className={classes.rootClass}>
             <Table
@@ -39,32 +75,30 @@ export default function OrderTable() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
-                        <TableRow key={row.name}>
+                    {listOrder.map((order) => (
+                        <TableRow key={order.id}>
                             <TableCell
                                 component="th"
                                 scope="row"
                                 className={classes.imgCell}
                             >
-                                <span>000000017</span>
+                                <span>{`000000${order.id}`}</span>
                             </TableCell>
                             <TableCell>
-                                <span>29/04/22</span>
+                                <span>{order.createAt.slice(0, 10)}</span>
                             </TableCell>
                             <TableCell>
-                                <span>duc56 duc</span>
+                                <span>{user.displayName}</span>
                             </TableCell>
                             <TableCell>
-                                <span>175.000.000đ</span>
+                                <span>{`${order.payment.totalAmount}đ`}</span>
                             </TableCell>
                             <TableCell className={classes.status}>
-                                <span>
-                                    <PendingActionsIcon />
-                                </span>
-                                <span>Đang xử lý</span>
+                                <span>{orderStatuses[order.status].icon}</span>
+                                <span>{orderStatuses[order.status].title}</span>
                             </TableCell>
                             <TableCell>
-                                <Link to={'/personal/orders/1'}>
+                                <Link to={`/personal/orders/${order.id}`}>
                                     <span className={classes.openButton}>
                                         <span>Xem chi tiết</span>
                                     </span>

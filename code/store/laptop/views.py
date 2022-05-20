@@ -13,7 +13,16 @@ class LaptopItemListAPIView(APIView):
 
     def get(self, request):
         listLaptopItem = LaptopItem.objects.all()
-        serializer = LaptopItemSerializer(listLaptopItem, many=True)
+        serializer = LaptopItemListSerializer(listLaptopItem, many=True)
+        return Response(serializer.data)
+
+
+class LaptopItemAPIView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, pk):
+        laptopItem = LaptopItem.objects.get(pk=pk)
+        serializer = LaptopItemSerializer(laptopItem)
         return Response(serializer.data)
 
 

@@ -12,6 +12,10 @@ const orderApi = {
     getOrder: (orderId) => {
         const url = `orders/${orderId}/`;
         return axiosClient.get(url);
+    },
+    cancelOrder: (orderId) => {
+        const url = `orders/${orderId}/cancel/`;
+        return axiosClient.patch(url);
     }
 };
 export default orderApi;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classes from './profile.module.scss';
 import PropTypes from 'prop-types';
 import {
@@ -15,8 +15,17 @@ import {
 import ChangePasswordModal from './changePasswordModal';
 import ChangeInfoModal from './changeInfoModal';
 import ChangeAvatarModal from './changeAvatarModal';
+import { useSelector } from 'react-redux';
+import { userSelector } from '../../../../../redux/selectors';
+
+const genders = {
+    male: 'Nam',
+    female: 'Nữ'
+};
 
 function Profile(props) {
+    const user = useSelector(userSelector).current;
+
     const [openPasswordModal, setOpenPasswordModal] = React.useState(false);
     const [openInfoModal, setOpenInfoModal] = React.useState(false);
     const [openAvatarModal, setOpenAvatarModal] = React.useState(false);
@@ -46,26 +55,28 @@ function Profile(props) {
                             <span>Ảnh đại diện</span>
                             <span>
                                 <button onClick={handleOpenAvatarModal}>
-                                    Thay đổi ảnh đại diện
+                                    {user.avatar
+                                        ? 'Thay đổi ảnh đại diện'
+                                        : 'Thêm ảnh đại diện'}
                                 </button>
                             </span>
                         </p>
                         <p>
                             <span>Tên hiển thị</span>
-                            <span>Nguyễn Tràng Đức</span>
+                            <span>{user.displayName || 'Chưa có'}</span>
                         </p>
                         <p>
                             <span>Tên đăng nhập</span>
-                            <span>duc56</span>
+                            <span>{user.username}</span>
                         </p>
 
                         <p>
                             <span>Email</span>
-                            <span>Trangduc56@gmail.com</span>
+                            <span>{user.email}</span>
                         </p>
                         <p>
                             <span>Giới tính</span>
-                            <span>Nam</span>
+                            <span>{genders[user.gender]}</span>
                         </p>
                     </div>
                     <Button variant="outlined" onClick={handleOpenInfoModal}>

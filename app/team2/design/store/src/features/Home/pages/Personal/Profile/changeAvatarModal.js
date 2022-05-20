@@ -13,6 +13,8 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import Modal from '@mui/material/Modal';
 import LockResetIcon from '@mui/icons-material/LockReset';
 import { Button } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { userSelector } from '../../../../../redux/selectors';
 
 const style = {
     position: 'absolute',
@@ -30,6 +32,7 @@ function ChangeAvatarModal(props) {
     const { openAvatarModal, handleCloseAvatarModal } = props;
     const [selectedFile, setSelectedFile] = useState();
     const [preview, setPreview] = useState();
+    const user = useSelector(userSelector).current;
     useEffect(() => {
         if (!selectedFile) {
             setPreview(undefined);
@@ -73,14 +76,14 @@ function ChangeAvatarModal(props) {
             <Fade in={openAvatarModal}>
                 <Box sx={style}>
                     <Avatar
-                        sx={{
-                            m: 1,
-                            bgcolor: 'secondary.main',
+                        sx={{ bgcolor: 'success' }}
+                        alt={user.displayName}
+                        src={process.env.REACT_APP_API_URL + user.avatar}
+                        style={{
+                            border: '2px solid var(--bg-primary)',
                             margin: 'auto'
                         }}
-                    >
-                        <AccountCircleIcon />
-                    </Avatar>
+                    />
                     <Typography
                         component="h1"
                         variant="h5"

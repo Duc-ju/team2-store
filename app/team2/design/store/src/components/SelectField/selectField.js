@@ -24,7 +24,7 @@ function SelectField(props) {
     const showError = errors[name] && touched[name];
     const [valueSelect, setValueSelect] = React.useState(value);
     const handleChange = (event) => {
-        setValueSelect(event.target.value);
+        setValueSelect(String(event.target.value));
     };
     return (
         <FormControl sx={{ width: '100%', m: '16px 0 8px 0' }}>
@@ -34,6 +34,7 @@ function SelectField(props) {
             <Select
                 {...field}
                 value={valueSelect}
+                name={name}
                 fullWidth
                 labelId={name}
                 id={name}
@@ -58,16 +59,16 @@ function SelectField(props) {
     );
 }
 
-// SelectField.propTypes = {
-//     field: PropTypes.object.isRequired,
-//     form: PropTypes.object.isRequired,
-//
-//     type: PropTypes.string,
-//     label: PropTypes.string,
-//     autoComplete: PropTypes.string,
-//     autoFocus: PropTypes.bool,
-//     menuItems: PropTypes.array
-// };
+SelectField.propTypes = {
+    field: PropTypes.object.isRequired,
+    form: PropTypes.object.isRequired,
+
+    type: PropTypes.string,
+    label: PropTypes.string,
+    autoComplete: PropTypes.string,
+    autoFocus: PropTypes.bool,
+    menuItems: PropTypes.array
+};
 SelectField.defaultProps = {
     type: 'text',
     label: '',

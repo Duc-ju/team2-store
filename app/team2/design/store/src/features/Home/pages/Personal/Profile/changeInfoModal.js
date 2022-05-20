@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -11,6 +11,11 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import * as Yup from 'yup';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SelectField from '../../../../../components/SelectField';
+import { useDispatch, useSelector } from 'react-redux';
+import { userSelector } from '../../../../../redux/selectors';
+import userApi from '../../../../../api/userApi';
+import userSlice from '../../../../../redux/userSlice';
+import noticeSlice from '../../../../../redux/noticeSlice';
 
 const style = {
     position: 'absolute',
@@ -26,10 +31,17 @@ const style = {
 
 export default function ChangeInfoModal(props) {
     const { openInfoModal, handleCloseInfoModal } = props;
+    const [fetching, setFetching] = useState(false);
+    const [close, setClose] = useState(false);
+    const user = useSelector(userSelector).current;
+    const dispatch = useDispatch();
     const initialValues = {
-        displayName: '',
-        email: '',
-        gender: 'male'
+        displayName: user.displayName || '',
+        email: user.email || '',
+        gender:
+            ((user.gender === 'male' || user.gender === 'female') &&
+                user.gender) ||
+            'male'
     };
     const validationSchema = Yup.object().shape({
         displayName: Yup.string().required('Vui lòng nhập tên hiển thị'),
@@ -40,6 +52,31 @@ export default function ChangeInfoModal(props) {
 
     const handleSubmit = (data) => {
         console.log(data);
+        setFetching(true);
+        userApi
+            .updateProfile(user.id, data)
+            .then((newUser) => {
+                setFetching(false);
+                setClose(true);
+                dispatch(userSlice.actions.loginSuccess(newUser));
+                dispatch(
+                    noticeSlice.actions.show({
+                        type: 'success',
+                        title: 'Cập nhật thông tin thành công'
+                    })
+                );
+                handleCloseInfoModal();
+            })
+            .catch((e) => {
+                console.log(e);
+                setFetching(false);
+                dispatch(
+                    noticeSlice.actions.show({
+                        type: 'error',
+                        title: 'Cập nhật không thành công'
+                    })
+                );
+            });
     };
 
     return (
@@ -87,7 +124,6 @@ export default function ChangeInfoModal(props) {
                                         name="displayName"
                                         component={InputField}
                                         label="Tên hiển thị"
-                                        type={'password'}
                                         autoComplete="displayName"
                                     />
 
@@ -121,7 +157,7 @@ export default function ChangeInfoModal(props) {
                                         fullWidth
                                         variant="contained"
                                         sx={{ mt: 3, mb: 2 }}
-                                        loading={false}
+                                        loading={fetching}
                                         loadingPosition="end"
                                         endIcon={<AccountCircleIcon />}
                                     >

@@ -7,9 +7,9 @@ from laptop.serializers import LaptopItemSerializer
 
 
 class CartSerializer(serializers.ModelSerializer):
-    bookItems = BookItemSerializer(many=True, read_only=True)
-    clothesItems = ClothesItemSerializer(many=True, read_only=True)
-    laptopItems = LaptopItemSerializer(many=True, read_only=True)
+    bookItems = BookItemSerializer(many=True)
+    clothesItems = ClothesItemSerializer(many=True)
+    laptopItems = LaptopItemSerializer(many=True)
 
     class Meta:
         model = Cart

@@ -26,18 +26,18 @@ function Header() {
     const dispatch = useDispatch();
     const location = useLocation();
     useLayoutEffect(() => {
-        bookApi.get().then((books) => {
+        bookApi.getAll().then((books) => {
             const bookRefs = books.map((book) => ({ ...book, type: 'book' }));
             dispatch(productSlice.actions.setBooks(bookRefs));
         });
-        clothesApi.get().then((clothes) => {
+        clothesApi.getAll().then((clothes) => {
             const clothesRefs = clothes.map((clothesItem) => ({
                 ...clothesItem,
                 type: 'clothes'
             }));
             dispatch(productSlice.actions.setClothes(clothesRefs));
         });
-        laptopApi.get().then((laptops) => {
+        laptopApi.getAll().then((laptops) => {
             const laptopRefs = laptops.map((laptop) => ({
                 ...laptop,
                 type: 'laptop'

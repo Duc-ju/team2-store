@@ -1,8 +1,12 @@
 import axiosBase from './axiosBase';
 
 const bookApi = {
-    get: () => {
+    getAll: () => {
         const url = `/book_items/`;
+        return axiosBase.get(url);
+    },
+    get: (id) => {
+        const url = `/book_items/${id}/`;
         return axiosBase.get(url);
     }
 };
