@@ -59,31 +59,31 @@ const productList = [
         id: 1,
         link: '/book',
         imgPath:
-            'https://salt.tikicdn.com/cache/w400/ts/banner/a6/90/5a/0ef8eef74e5dbceaba7c69f6bcf42337.png.webp',
+            'https://salt.tikicdn.com/cache/w400/ts/banner/2a/5a/e2/da74753bca9a8d3fe14a200ffbc77292.png.webp',
         alt: 'sách',
         displayName: 'Sách'
     },
     {
         id: 2,
-        link: '/book',
+        link: '/clothes',
         imgPath:
-            'https://salt.tikicdn.com/cache/w400/ts/banner/a6/90/5a/0ef8eef74e5dbceaba7c69f6bcf42337.png.webp',
-        alt: 'sách',
-        displayName: 'Sách'
+            'https://salt.tikicdn.com/cache/w400/ts/banner/2a/5a/e2/da74753bca9a8d3fe14a200ffbc77292.png.webp',
+        alt: 'Quần áo',
+        displayName: 'Quần áo'
     },
     {
         id: 3,
-        link: '/book',
+        link: '/laptop',
         imgPath:
-            'https://salt.tikicdn.com/cache/w400/ts/banner/a6/90/5a/0ef8eef74e5dbceaba7c69f6bcf42337.png.webp',
-        alt: 'sách',
-        displayName: 'Sách'
+            'https://salt.tikicdn.com/cache/w400/ts/banner/2a/5a/e2/da74753bca9a8d3fe14a200ffbc77292.png.webp',
+        alt: 'Laptop',
+        displayName: 'Laptop'
     },
     {
         id: 4,
         link: '/book',
         imgPath:
-            'https://salt.tikicdn.com/cache/w400/ts/banner/a6/90/5a/0ef8eef74e5dbceaba7c69f6bcf42337.png.webp',
+            'https://salt.tikicdn.com/cache/w400/ts/banner/2a/5a/e2/da74753bca9a8d3fe14a200ffbc77292.png.webp',
         alt: 'sách',
         displayName: 'Sách'
     },
@@ -91,7 +91,7 @@ const productList = [
         id: 5,
         link: '/book',
         imgPath:
-            'https://salt.tikicdn.com/cache/w400/ts/banner/a6/90/5a/0ef8eef74e5dbceaba7c69f6bcf42337.png.webp',
+            'https://salt.tikicdn.com/cache/w400/ts/banner/2a/5a/e2/da74753bca9a8d3fe14a200ffbc77292.png.webp',
         alt: 'sách',
         displayName: 'Sách'
     },
@@ -99,7 +99,7 @@ const productList = [
         id: 6,
         link: '/book',
         imgPath:
-            'https://salt.tikicdn.com/cache/w400/ts/banner/a6/90/5a/0ef8eef74e5dbceaba7c69f6bcf42337.png.webp',
+            'https://salt.tikicdn.com/cache/w400/ts/banner/2a/5a/e2/da74753bca9a8d3fe14a200ffbc77292.png.webp',
         alt: 'sách',
         displayName: 'Sách'
     }
@@ -222,7 +222,7 @@ function Body() {
                                     overflow: 'hidden',
                                     width: '100%'
                                 }}
-                                src="https://salt.tikicdn.com/cache/w400/ts/banner/a6/90/5a/0ef8eef74e5dbceaba7c69f6bcf42337.png.webp"
+                                src="https://salt.tikicdn.com/cache/w400/ts/banner/2a/5a/e2/da74753bca9a8d3fe14a200ffbc77292.png.webp"
                                 alt="tiki-khuyen-mai"
                             />
                         </Container>
